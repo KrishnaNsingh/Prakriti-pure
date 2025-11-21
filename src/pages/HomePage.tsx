@@ -70,7 +70,7 @@ export function HomePage() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/50">
+      {/* <section className="bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/50">
         <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-12 md:py-16">
           <div className="max-w-2xl mx-auto text-center space-y-6">
             <h2>Join Our Beauty Community</h2>
@@ -89,7 +89,7 @@ export function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
