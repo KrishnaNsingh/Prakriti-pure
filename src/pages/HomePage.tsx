@@ -39,7 +39,7 @@ export function HomePage() {
             </div>
             <div className="relative h-[300px] md:h-[500px] rounded-2xl overflow-hidden">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1718971094326-a458e2aa06fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiZWF1dHklMjBoZXJvJTIwYmFubmVyfGVufDF8fHx8MTc2MzIxODUwNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="https://cdn.pixabay.com/photo/2023/08/30/00/24/ai-generated-8222355_1280.jpg"
                 alt="Hero Banner"
                 className="w-full h-full object-cover"
               />
