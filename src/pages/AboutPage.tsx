@@ -227,7 +227,7 @@ export function AboutPage() {
                 </div>
                 <div>
                   <h4 className="mb-2">Email Us</h4>
-                  <p className="text-sm text-muted-foreground">support@prakritipure.com</p>
+                  <p className="text-sm text-muted-foreground">krishna65255@gmail.com</p>
                   <p className="text-sm text-muted-foreground">hello@prakritipure.com</p>
                 </div>
               </div>
@@ -238,7 +238,7 @@ export function AboutPage() {
                 </div>
                 <div>
                   <h4 className="mb-2">Call Us</h4>
-                  <p className="text-sm text-muted-foreground">+91 98765 43210</p>
+                  <p className="text-sm text-muted-foreground">+91 898535724</p>
                   <p className="text-sm text-muted-foreground">Mon-Fri: 9AM - 6PM IST</p>
                 </div>
               </div>
@@ -250,9 +250,9 @@ export function AboutPage() {
                 <div>
                   <h4 className="mb-2">Visit Us</h4>
                   <p className="text-sm text-muted-foreground">
-                    123 Beauty Street,<br />
-                    Andheri West, Mumbai,<br />
-                    Maharashtra 400053, India
+                    Block-b, Subramanyam, Y-junction, Karnavanipalem<br />
+                    Gajuwaka, Vishakahapatnum,<br />
+                    AndhraPradesh, India - 530044
                   </p>
                 </div>
               </div>
@@ -262,7 +262,7 @@ export function AboutPage() {
       </section>
 
       {/* Careers Section */}
-      <section id="careers" className="max-w-[1440px] mx-auto px-4 md:px-8 py-12 md:py-16">
+      {/* <section id="careers" className="max-w-[1440px] mx-auto px-4 md:px-8 py-12 md:py-16">
         <div className="text-center mb-12">
           <h2 className="mb-4">Join Our Team</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -314,7 +314,7 @@ export function AboutPage() {
             Send Your Resume
           </Button>
         </div>
-      </section>
+      </section> */}
 
       {/* Blog Section */}
       <section id="blog" className="bg-secondary/30">
