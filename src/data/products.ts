@@ -50,7 +50,7 @@ export const products: Product[] = [
   },
   {
     id: "3",
-    name: "Blossom Eau de Parfum",
+    name: "Dulex parfum",
     price: 68.00,
     image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJmdW1lJTIwYm90dGxlfGVufDF8fHx8MTc2MzExMzA4OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     category: "Fragrance",
