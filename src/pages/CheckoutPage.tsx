@@ -98,13 +98,13 @@ export function CheckoutPage() {
                 <h3 className="mb-6">Payment Method</h3>
                 <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
                   <div className="space-y-3">
-                    <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
+                    {/* <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
                       <RadioGroupItem value="card" id="card" />
                       <Label htmlFor="card" className="flex items-center gap-2 cursor-pointer flex-1">
                         <CreditCard className="w-5 h-5" />
                         Credit / Debit Card
                       </Label>
-                    </div>
+                    </div> */}
                     <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
                       <RadioGroupItem value="upi" id="upi" />
                       <Label htmlFor="upi" className="flex items-center gap-2 cursor-pointer flex-1">
@@ -112,18 +112,18 @@ export function CheckoutPage() {
                         UPI
                       </Label>
                     </div>
-                    <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
+                    {/* <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
                       <RadioGroupItem value="cod" id="cod" />
                       <Label htmlFor="cod" className="flex items-center gap-2 cursor-pointer flex-1">
                         <Banknote className="w-5 h-5" />
                         Cash on Delivery
                       </Label>
-                    </div>
+                    </div> */}
                   </div>
                 </RadioGroup>
 
                 {/* Card Details */}
-                {paymentMethod === "card" && (
+                {/* {paymentMethod === "card" && (
                   <div className="mt-6 space-y-4">
                     <div>
                       <Label htmlFor="cardNumber">Card Number</Label>
@@ -155,7 +155,7 @@ export function CheckoutPage() {
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
 
                 {/* UPI Details */}
                 {paymentMethod === "upi" && (

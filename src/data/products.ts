@@ -107,5 +107,15 @@ export const products: Product[] = [
     rating: 4.7,
     description: "Refresh and balance your skin with rosewater.",
     detailedDescription: "Our Rose Mist Toner is a refreshing spray that hydrates and balances your skin's pH. Made with pure rosewater and witch hazel, it minimizes pores, soothes inflammation, and prepares your skin for moisturizer. Use throughout the day for a quick refresh."
-  }
+  },
+  {
+    id: "9",
+    name: "Rose ",
+    price: 36.00,
+    image: "https://images.unsplash.com/photo-1629380108574-40c083555579?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiZWF1dHklMjBzcGElMjBwcm9kdWN0c3xlbnwxfHx8fDE3NjMyMTg1MDN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    category: "Skincare",
+    rating: 4.7,
+    description: "Refresh and balance your skin with rosewater.",
+    detailedDescription: "Our Rose Mist Toner is a refreshing spray that hydrates and balances your skin's pH. Made with pure rosewater and witch hazel, it minimizes pores, soothes inflammation, and prepares your skin for moisturizer. Use throughout the day for a quick refresh."
+  },
 ];
