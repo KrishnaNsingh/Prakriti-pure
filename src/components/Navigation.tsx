@@ -5,7 +5,8 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { useCart } from "../context/CartContext";
-import logo from "figma:asset/dfeea808c824bad396267139942f3c6f460a3d72.png";
+// import logo from "figma:asset/dfeea808c824bad396267139942f3c6f460a3d72.png";
+import logo from "../assets/PrakritiPureOrg.jpeg";
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

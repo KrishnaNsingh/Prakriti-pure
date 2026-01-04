@@ -15,7 +15,7 @@ import { Label } from "../components/ui/label";
 import { SlidersHorizontal } from "lucide-react";
 
 export function ShopPage() {
-  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [priceRange, setPriceRange] = useState([0, 200]);
   const [selectedCategories, setSelectedCategories] = useState<
     string[]
   >([]);
@@ -41,7 +41,7 @@ export function ShopPage() {
         <Slider
           value={priceRange}
           onValueChange={setPriceRange}
-          max={100}
+          max={200}
           step={1}
           className="mb-2"
         />
