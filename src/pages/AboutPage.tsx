@@ -5,7 +5,7 @@ import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Mail, Phone, MapPin, Briefcase, Calendar, ArrowRight } from "lucide-react";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 
 export function AboutPage() {
   const location = useLocation();
@@ -361,14 +361,14 @@ export function AboutPage() {
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          {/* <div className="text-center mt-12">
             <Button 
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-white rounded-full px-8"
             >
               View All Articles
             </Button>
-          </div>
+          </div> */}
         </div>
       </section>
     </div>

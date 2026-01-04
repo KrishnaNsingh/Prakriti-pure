@@ -7,7 +7,7 @@ import { Label } from "../components/ui/label";
 import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { CreditCard, Smartphone, Banknote } from "lucide-react";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 
 export function CheckoutPage() {
   const navigate = useNavigate();

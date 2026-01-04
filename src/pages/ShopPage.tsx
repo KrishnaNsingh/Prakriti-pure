@@ -65,7 +65,8 @@ export function ShopPage() {
                 checked={selectedCategories.includes(
                   category.name,
                 )}
-                onCheckedChange={(checked) => {
+                //checked was changed to [: boolean | "indeterminate"  ] as in onCheckChnage is a boolean porperty ! 
+                onCheckedChange={(checked: boolean | "indeterminate") => {
                   if (checked) {
                     setSelectedCategories([
                       ...selectedCategories,
@@ -103,7 +104,7 @@ export function ShopPage() {
               <Checkbox
                 id={`rating-${rating}`}
                 checked={minRating === rating}
-                onCheckedChange={(checked) => {
+                onCheckedChange={(checked : boolean | "indeterminate") => {
                   if (checked) {
                     setMinRating(rating);
                   }
@@ -197,7 +198,7 @@ export function ShopPage() {
             </div>
 
             {/* Load More Button */}
-            {filteredProducts.length >= 9 && (
+            {/* {filteredProducts.length >= 9 && (
               <div className="mt-12 text-center">
                 <Button
                   variant="outline"
@@ -207,7 +208,7 @@ export function ShopPage() {
                   Load More
                 </Button>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

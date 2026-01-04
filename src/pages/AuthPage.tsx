@@ -4,7 +4,7 @@ import { Button } from "../components/ui/button";
 import { Label } from "../components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { Input } from "../components/ui/input";
-import { toast } from "sonner@2.0.3";
+import { toast } from "sonner";
 import logo from "figma:asset/dfeea808c824bad396267139942f3c6f460a3d72.png";
 
 export function AuthPage() {

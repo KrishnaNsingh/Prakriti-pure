@@ -19,7 +19,7 @@ export function Navigation() {
     { name: "Home", path: "/" },
     { name: "Shop", path: "/shop" },
     { name: "Categories", path: "/shop" },
-    { name: "About", path: "/about" }
+    { name: "About", path: "/about" },
   ];
 
   return (
@@ -28,8 +28,18 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Prakriti Pure Logo" className="h-10 md:h-14 w-auto" />
-            <span className="text-xl md:text-2xl text-foreground" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600 }}>
+            <img
+              src={logo}
+              alt="Prakriti Pure Logo"
+              className="h-10 md:h-14 w-auto"
+            />
+            <span
+              className="text-xl md:text-2xl text-foreground"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontWeight: 600,
+              }}
+            >
               PRAKRITI PURE
             </span>
           </Link>
@@ -41,7 +51,9 @@ export function Navigation() {
                 key={link.name}
                 to={link.path}
                 className={`transition-colors hover:text-primary ${
-                  location.pathname === link.path ? "text-primary" : "text-foreground"
+                  location.pathname === link.path
+                    ? "text-primary"
+                    : "text-foreground"
                 }`}
               >
                 {link.name}
@@ -51,13 +63,13 @@ export function Navigation() {
 
           {/* Desktop Search & Cart */}
           <div className="hidden md:flex items-center gap-4">
-            <div className="relative">
+            {/* <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 placeholder="Search products..."
                 className="pl-10 w-64 bg-secondary border-0"
               />
-            </div>
+            </div> */}
             <Button
               variant="ghost"
               size="icon"
@@ -74,7 +86,9 @@ export function Navigation() {
           </div>
 
           {/* Mobile Menu & Cart */}
+          {/* Mobile Menu & Cart */}
           <div className="flex md:hidden items-center gap-2">
+            {/* Cart Button */}
             <Button
               variant="ghost"
               size="icon"
@@ -88,35 +102,51 @@ export function Navigation() {
                 </span>
               )}
             </Button>
+
+            {/* Mobile Menu */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Menu className="w-6 h-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <div className="flex flex-col gap-6 mt-8">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Search products..."
-                      className="pl-10 bg-secondary border-0"
-                    />
-                  </div>
-                  <nav className="flex flex-col gap-4">
-                    {navLinks.map((link) => (
-                      <Link
-                        key={link.name}
-                        to={link.path}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className={`text-lg py-2 transition-colors hover:text-primary ${
-                          location.pathname === link.path ? "text-primary" : "text-foreground"
-                        }`}
-                      >
-                        {link.name}
-                      </Link>
-                    ))}
+
+              <SheetContent
+                side="right"
+                className="w-[85%] max-w-sm bg-secondary/95 backdrop-blur-md border-l"
+              >
+                <div className="flex flex-col h-full pt-8 px-3">
+                  {/* Navigation */}
+                  <nav className="flex flex-col gap-2 mt-4">
+                    {navLinks.map((link) => {
+                      const isActive = location.pathname === link.path;
+
+                      return (
+                        <Link
+                          key={link.name}
+                          to={link.path}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className={`flex items-center rounded-xl px-5 py-4 text-lg font-semibold tracking-wide transition-all
+                              ${
+                                isActive
+                                  ? "bg-primary/15 text-primary"
+                                  : "text-foreground hover:bg-muted"
+                              }
+                            `}
+                        >
+                          {link.name}
+                        </Link>
+                      );
+                    })}
                   </nav>
+
+                  {/* Footer */}
+                  <div className="mt-auto px-4 py-6 text-center space-y-1 text-foreground/80">
+                    <div className="text-xs">© Prakriti Pure</div>
+                    <div className="text-sm font-medium">
+                      Pure • Natural • Conscious
+                    </div>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
