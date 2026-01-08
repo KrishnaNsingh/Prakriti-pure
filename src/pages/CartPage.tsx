@@ -9,7 +9,7 @@ export function CartPage() {
   const { cart, updateQuantity, removeFromCart, getCartTotal } = useCart();
 
   const subtotal = getCartTotal();
-  const shipping = subtotal > 0 ? (subtotal > 50 ? 0 : 5.99) : 0;
+  const shipping = subtotal > 0 ? (subtotal > 500 ? 0 : 100.00) : 0;
   const total = subtotal + shipping;
 
   if (cart.length === 0) {

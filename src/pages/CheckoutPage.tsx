@@ -15,7 +15,7 @@ export function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("card");
 
   const subtotal = getCartTotal();
-  const shipping = subtotal > 50 ? 0 : 5.99;
+  const shipping = subtotal > 500 ? 0 : 100.00;
   const total = subtotal + shipping;
 
   if (cart.length === 0) {
@@ -158,7 +158,7 @@ export function CheckoutPage() {
                 )} */}
 
                 {/* UPI Details */}
-                {paymentMethod === "upi" && (
+                {/* {paymentMethod === "upi" && (
                   <div className="mt-6">
                     <Label htmlFor="upiId">UPI ID</Label>
                     <Input
@@ -168,7 +168,7 @@ export function CheckoutPage() {
                       className="mt-2"
                     />
                   </div>
-                )}
+                )} */}
               </div>
             </div>
 
