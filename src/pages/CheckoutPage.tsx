@@ -8,6 +8,8 @@ import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { CreditCard, Smartphone, Banknote } from "lucide-react";
 import { toast } from "sonner";
+import axios from "axios";
+
 
 export function CheckoutPage() {
   const navigate = useNavigate();
@@ -18,16 +20,87 @@ export function CheckoutPage() {
   const shipping = subtotal > 500 ? 0 : 100.00;
   const total = subtotal + shipping;
 
+  // submit inputs ! 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [country, setCountry] = useState("");
+
+
   if (cart.length === 0) {
     navigate("/cart");
     return null;
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const orderData = {
+    customer: {
+      firstName,
+      lastName,
+      email,
+      phone,
+    },
+    shippingAddress: {
+      address,
+      city,
+      state,
+      zip,
+      country,
+    },
+    cartItems: cart.map((item) => ({
+      productId: item.id,
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      quantity: item.quantity,
+    })),
+    pricing: {
+      subtotal,
+      shipping,
+      total,
+    },
+  };
+  console.log("ORDER DATA:", orderData);
+  await axios.post("http://localhost:5000/api/orders", orderData);
+
+  /*
+      TEST OF DATA CAPTURE ! SUCCESS
+
+  console.log({
+    firstName,
+    lastName,
+    email,
+    phone,
+    address,
+    city,
+    state,
+    zip,
+    country,
+  });
+
+  toast.success("Form data captured"); */
+  
+  
+
+  try {
+    await axios.post("http://localhost:5000/api/orders", orderData);
     toast.success("Order placed successfully!");
     clearCart();
     setTimeout(() => navigate("/"), 2000);
+  } catch (error) {
+    toast.error("Order failed");
+    console.error(error);
+  }
+    // toast.success("Order placed successfully!");
+    // clearCart();
+    // setTimeout(() => navigate("/"), 2000);
   };
 
   return (
@@ -45,19 +118,39 @@ export function CheckoutPage() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" required className="mt-2" />
+                    <Input 
+                      id="firstName" 
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required 
+                      className="mt-2"  
+                    />
                   </div>
                   <div>
                     <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" required className="mt-2" />
+                    <Input id="lastName" 
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required 
+                    className="mt-2" />
                   </div>
                   <div>
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" required className="mt-2" />
+                    <Input id="email" 
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} 
+                    required 
+                    className="mt-2" />
                   </div>
                   <div>
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" type="tel" required className="mt-2" />
+                    <Input id="phone" 
+                    type="tel" 
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required 
+                    className="mt-2" />
                   </div>
                 </div>
               </div>
@@ -68,26 +161,46 @@ export function CheckoutPage() {
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="address">Street Address</Label>
-                    <Input id="address" required className="mt-2" />
+                    <Input id="address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)} 
+                    required 
+                    className="mt-2" />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="city">City</Label>
-                      <Input id="city" required className="mt-2" />
+                      <Input id="city" 
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      required 
+                      className="mt-2" />
                     </div>
                     <div>
                       <Label htmlFor="state">State / Province</Label>
-                      <Input id="state" required className="mt-2" />
+                      <Input id="state" 
+                      value={state}
+                      onChange={(e) => setState(e.target.value)}
+                      required 
+                      className="mt-2" />
                     </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="zip">ZIP / Postal Code</Label>
-                      <Input id="zip" required className="mt-2" />
+                      <Input id="zip" 
+                      value={zip}
+                      onChange={(e) => setZip(e.target.value)}
+                      required 
+                      className="mt-2" />
                     </div>
                     <div>
                       <Label htmlFor="country">Country</Label>
-                      <Input id="country" required className="mt-2" />
+                      <Input id="country"
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)} 
+                      required 
+                      className="mt-2" />
                     </div>
                   </div>
                 </div>
