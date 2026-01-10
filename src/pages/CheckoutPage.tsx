@@ -67,8 +67,8 @@ export function CheckoutPage() {
       total,
     },
   };
-  console.log("ORDER DATA:", orderData);
-  await axios.post("http://localhost:5000/api/orders", orderData);
+  // console.log("ORDER DATA:", orderData);
+  // await axios.post("http://localhost:5000/api/orders", orderData);
 
   /*
       TEST OF DATA CAPTURE ! SUCCESS
