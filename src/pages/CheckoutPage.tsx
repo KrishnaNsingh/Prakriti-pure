@@ -10,17 +10,16 @@ import { CreditCard, Smartphone, Banknote } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 
-
 export function CheckoutPage() {
   const navigate = useNavigate();
   const { cart, getCartTotal, clearCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState("card");
 
   const subtotal = getCartTotal();
-  const shipping = subtotal > 500 ? 0 : 100.00;
+  const shipping = subtotal > 500 ? 0 : 100.0;
   const total = subtotal + shipping;
 
-  // submit inputs ! 
+  // submit inputs !
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -32,75 +31,107 @@ export function CheckoutPage() {
   const [zip, setZip] = useState("");
   const [country, setCountry] = useState("");
 
+  //Razorpay OrderId from mongoDB
+  const [mongoOrderId, setMongoOrderId] = useState<string | null>(null);
 
   if (cart.length === 0) {
     navigate("/cart");
     return null;
   }
+  const orderData = {
+      customer: {
+        firstName,
+        lastName,
+        email,
+        phone,
+      },
+      shippingAddress: {
+        address,
+        city,
+        state,
+        zip,
+        country,
+      },
+      cartItems: cart.map((item) => ({
+        productId: item.id,
+        name: item.name,
+        image: item.image,
+        price: item.price,
+        quantity: item.quantity,
+      })),
+      pricing: {
+        subtotal,
+        shipping,
+        total,
+      },
+    };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const orderData = {
-    customer: {
-      firstName,
-      lastName,
-      email,
-      phone,
-    },
-    shippingAddress: {
-      address,
-      city,
-      state,
-      zip,
-      country,
-    },
-    cartItems: cart.map((item) => ({
-      productId: item.id,
-      name: item.name,
-      image: item.image,
-      price: item.price,
-      quantity: item.quantity,
-    })),
-    pricing: {
-      subtotal,
-      shipping,
-      total,
-    },
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+    
+
+  //   try {
+  //     await axios.post("http://localhost:5000/api/orders", orderData);
+  //     toast.success("Order placed successfully!");
+  //     clearCart();
+  //     setTimeout(() => navigate("/"), 2000);
+  //   } catch (error) {
+  //     toast.error("Order failed");
+  //     console.error(error);
+  //   }
+  // };
+
+  const createOrder = async () => {
+    const { data } = await axios.post(
+      "http://localhost:5000/api/orders",
+      orderData
+    );
+
+    setMongoOrderId(data._id);
+    return data._id;
   };
-  // console.log("ORDER DATA:", orderData);
-  // await axios.post("http://localhost:5000/api/orders", orderData);
 
-  /*
-      TEST OF DATA CAPTURE ! SUCCESS
+  const startPayment = async () => {
+    const orderId = mongoOrderId ?? (await createOrder());
 
-  console.log({
-    firstName,
-    lastName,
-    email,
-    phone,
-    address,
-    city,
-    state,
-    zip,
-    country,
-  });
+    const { data } = await axios.post(
+      "http://localhost:5000/api/payment/create-order",
+      { orderId }
+    );
 
-  toast.success("Form data captured"); */
-  
-  
+    openRazorpay(data);
+  };
 
-  try {
-    await axios.post("http://localhost:5000/api/orders", orderData);
-    toast.success("Order placed successfully!");
-    clearCart();
-    setTimeout(() => navigate("/"), 2000);
-  } catch (error) {
-    toast.error("Order failed");
-    console.error(error);
-  }
-    // toast.success("Order placed successfully!");
-    // clearCart();
-    // setTimeout(() => navigate("/"), 2000);
+  const openRazorpay = (razorpayOrder: any) => {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: razorpayOrder.amount,
+      currency: "INR",
+      name: "Prakriti Pure",
+      description: "Order Payment",
+      order_id: razorpayOrder.id,
+
+      method: {
+        upi: true,
+        card: true,
+        netbanking: false,
+        wallet: false,
+      },
+
+      handler: function (response: any) {
+        // TEMP: just log
+        console.log("Payment success", response);
+      },
+
+      modal: {
+        ondismiss: function () {
+          console.log("Payment popup closed");
+        },
+      },
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
   };
 
   return (
@@ -108,7 +139,7 @@ export function CheckoutPage() {
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 md:py-12">
         <h1 className="mb-8">Checkout</h1>
 
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="grid md:grid-cols-3 gap-8">
             {/* Checkout Form */}
             <div className="md:col-span-2 space-y-6">
@@ -118,39 +149,45 @@ export function CheckoutPage() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="firstName">First Name</Label>
-                    <Input 
-                      id="firstName" 
+                    <Input
+                      id="firstName"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
-                      required 
-                      className="mt-2"  
+                      required
+                      className="mt-2"
                     />
                   </div>
                   <div>
                     <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" 
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required 
-                    className="mt-2" />
+                    <Input
+                      id="lastName"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                      className="mt-2"
+                    />
                   </div>
                   <div>
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" 
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} 
-                    required 
-                    className="mt-2" />
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="mt-2"
+                    />
                   </div>
                   <div>
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" 
-                    type="tel" 
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required 
-                    className="mt-2" />
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                      className="mt-2"
+                    />
                   </div>
                 </div>
               </div>
@@ -161,46 +198,56 @@ export function CheckoutPage() {
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="address">Street Address</Label>
-                    <Input id="address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)} 
-                    required 
-                    className="mt-2" />
+                    <Input
+                      id="address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      required
+                      className="mt-2"
+                    />
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="city">City</Label>
-                      <Input id="city" 
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      required 
-                      className="mt-2" />
+                      <Input
+                        id="city"
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                        required
+                        className="mt-2"
+                      />
                     </div>
                     <div>
                       <Label htmlFor="state">State / Province</Label>
-                      <Input id="state" 
-                      value={state}
-                      onChange={(e) => setState(e.target.value)}
-                      required 
-                      className="mt-2" />
+                      <Input
+                        id="state"
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                        required
+                        className="mt-2"
+                      />
                     </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="zip">ZIP / Postal Code</Label>
-                      <Input id="zip" 
-                      value={zip}
-                      onChange={(e) => setZip(e.target.value)}
-                      required 
-                      className="mt-2" />
+                      <Input
+                        id="zip"
+                        value={zip}
+                        onChange={(e) => setZip(e.target.value)}
+                        required
+                        className="mt-2"
+                      />
                     </div>
                     <div>
                       <Label htmlFor="country">Country</Label>
-                      <Input id="country"
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)} 
-                      required 
-                      className="mt-2" />
+                      <Input
+                        id="country"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        required
+                        className="mt-2"
+                      />
                     </div>
                   </div>
                 </div>
@@ -209,7 +256,10 @@ export function CheckoutPage() {
               {/* Payment Method */}
               <div className="bg-white rounded-xl p-6 shadow-sm">
                 <h3 className="mb-6">Payment Method</h3>
-                <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
+                <RadioGroup
+                  value={paymentMethod}
+                  onValueChange={setPaymentMethod}
+                >
                   <div className="space-y-3">
                     {/* <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
                       <RadioGroupItem value="card" id="card" />
@@ -220,7 +270,10 @@ export function CheckoutPage() {
                     </div> */}
                     <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
                       <RadioGroupItem value="upi" id="upi" />
-                      <Label htmlFor="upi" className="flex items-center gap-2 cursor-pointer flex-1">
+                      <Label
+                        htmlFor="upi"
+                        className="flex items-center gap-2 cursor-pointer flex-1"
+                      >
                         <Smartphone className="w-5 h-5" />
                         UPI
                       </Label>
@@ -303,8 +356,12 @@ export function CheckoutPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm truncate">{item.name}</p>
-                        <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
-                        <p className="text-sm text-primary">₹{(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="text-sm text-muted-foreground">
+                          Qty: {item.quantity}
+                        </p>
+                        <p className="text-sm text-primary">
+                          ₹{(item.price * item.quantity).toFixed(2)}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -318,22 +375,35 @@ export function CheckoutPage() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Shipping</span>
-                    <span>{shipping === 0 ? "Free" : `₹${shipping.toFixed(2)}`}</span>
+                    <span>
+                      {shipping === 0 ? "Free" : `₹${shipping.toFixed(2)}`}
+                    </span>
                   </div>
                   <div className="border-t border-border pt-4">
                     <div className="flex justify-between">
                       <span>Total</span>
-                      <span className="text-xl text-primary">₹{total.toFixed(2)}</span>
+                      <span className="text-xl text-primary">
+                        ₹{total.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                 </div>
 
-                <Button
+                {/* <Button
                   type="submit"
                   size="lg"
+                  onClick={startPayment} 
                   className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
                 >
-                  Place Order
+                  Place Orderd
+                </Button> */}
+                <Button
+                  type="button"
+                  size="lg"
+                  onClick={startPayment}
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
+                >
+                  Pay with UPI
                 </Button>
               </div>
             </div>
