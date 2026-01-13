@@ -8,7 +8,7 @@ import paymentSuccessTemplate from "../utils/paymentSuccess.js";
 import paymentFailureTemplate from "../utils/paymentFailure.js";
 
 
-console.log("✅ paymentRoutes loaded");
+// console.log("✅ paymentRoutes loaded");
 
 const router = express.Router();
 router.get("/test", (req, res) => {
@@ -40,8 +40,6 @@ router.post("/create-order", async (req, res) => {
   }
 });
 
-console.log("krishna");
-
 
 router.post("/verify", async (req, res) => {
   try {
@@ -68,12 +66,11 @@ router.post("/verify", async (req, res) => {
     }
 
     
-    console.log("VERIFY RECEIVED:", razorpay_order_id);
 
     // 3. Find order by Razorpay order ID
     const order = await Order.findOne({ razorpayOrderId: razorpay_order_id });
 
-    console.log("ORDER FOUND:", !!order);
+    
 
 
     if (!order) {
@@ -81,30 +78,91 @@ router.post("/verify", async (req, res) => {
     }
 
     // 4. Update order status
-    order.paymentStatus = "paid";
+    order.paymentStatus = "paid"; 
     order.razorpayPaymentId = razorpay_payment_id;
     order.paidAt = new Date();
 
     await order.save();
-    console.log("VERIFY for Razorpay Order:", razorpay_order_id);
-    console.log("FOUND ORDER:", order?._id);
 
-    // (Email will be added after this step)
-    // res.json({ success: true, orderId: order._id });
     res.status(200).json({
       success: true,
-      message: "Payment verified successfully",
+      // message: "Payment verified successfully",
       orderId: order._id,
-      paymentStatus: order.paymentStatus,  
+      // paymentStatus: order.paymentStatus,  
+    });
+
+    sendEmail(
+      order.customer.email,
+      "Payment Successful - Prakriti Pure",
+      paymentSuccessTemplate(order)
+    ).catch(err => {
+  console.error("Email failed:", err);
 });
+
   } catch (error) {
     // res.status(500).json({ message: error.message });
-    return res.status(400).json({
+    console.error(error);
+    return res.status(500).json({
       success: false,
-      message: "Payment verification failed",
+      message: "Payment verification failed and Internal server error",
     });
   }
 });
 
+// router.post("/failure", async (req, res) => {
+//   // const { orderId } = req.body;
+//   if (order.paymentStatus === "paid") {
+//     return res.status(400).json({ message: "Order already paid" });
+//   }
+
+//   const order = await Order.findById(orderId);
+//   if (!order) return res.status(404).json({});
+
+//   order.paymentStatus = "failed";   ❗ can over write
+//   await order.save();
+
+//   await sendEmail(
+//     order.customer.email,
+//     "Payment Failed - Prakriti Pure",
+//     paymentFailureTemplate(order)
+//   );
+
+//   res.json({ success: true });
+// });
+router.post("/failure", async (req, res) => {
+  try {
+    const { orderId } = req.body;
+    if (!orderId) {
+      return res.status(400).json({ message: "Order ID required" });
+    }
+
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    // ❗ Prevent overwriting a paid order
+    if (order.paymentStatus === "paid") {
+      return res.status(400).json({ message: "Order already paid" });
+    }
+
+    order.paymentStatus = "failed";
+    await order.save();
+
+    // Respond FIRST
+    res.json({ success: true });
+
+    // Email as side-effect (non-blocking)
+    sendEmail(
+      order.customer.email,
+      "Payment Failed - Prakriti Pure",
+      paymentFailureTemplate(order)
+    ).catch(console.error);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 export default router;

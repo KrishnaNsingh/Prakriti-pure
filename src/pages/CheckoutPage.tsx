@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { Button } from "../components/ui/button";
@@ -10,6 +11,8 @@ import { CreditCard, Smartphone, Banknote } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+
+
 
 
 export function CheckoutPage() {
@@ -38,10 +41,17 @@ export function CheckoutPage() {
   //Razorpay OrderId from mongoDB
   const [mongoOrderId, setMongoOrderId] = useState<string | null>(null);
 
-  if (cart.length === 0) {
-    navigate("/cart");
-    return null;
-  }
+  // if (cart.length === 0) {
+  //   navigate("/cart");
+  //   return null;
+  // }
+  useEffect(() => {
+    if (cart.length === 0 && !mongoOrderId) {
+      navigate("/cart");
+    }
+  }, [cart.length, mongoOrderId, navigate]);
+
+  
   const orderData = {
     customer: {
       firstName,
@@ -94,7 +104,20 @@ export function CheckoutPage() {
     return data._id;
   };
 
+  
+const [isPaying, setIsPaying] = useState(false);
+  //start payment
   const startPayment = async () => {
+    // prevent double click
+    if (isPaying) return;
+    //check if all form are filled 
+    if (!firstName || !email || !phone || !address) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+     try {
+    setIsPaying(true);
+
     const orderId = mongoOrderId ?? (await createOrder());
 
     const { data } = await axios.post(
@@ -103,7 +126,11 @@ export function CheckoutPage() {
     );
 
     openRazorpay(data);
-  };
+  } catch (error) {
+    toast.error("Unable to start payment");
+    setIsPaying(false);
+  }
+};
 
   const openRazorpay = (razorpayOrder: any) => {
     const options = {
@@ -128,7 +155,7 @@ export function CheckoutPage() {
         console.log("Payment success", response);
       },*/
       handler: async function (response: any) {
-        console.log("🔥 RAZORPAY HANDLER FIRED", response);
+        // console.log("🔥 RAZORPAY HANDLER FIRED", response);
         try {
           console.log("➡️ CALLING /verify API");
           const verifyRes = await axios.post(
@@ -139,7 +166,7 @@ export function CheckoutPage() {
               razorpay_signature: response.razorpay_signature,
             }
           );
-          console.log("✅ /verify RESPONSE", verifyRes.data);
+          // console.log("✅ /verify RESPONSE", verifyRes.data);
 
           if (verifyRes.data.success) {
             clearCart();
@@ -149,12 +176,14 @@ export function CheckoutPage() {
           }
         } catch (error) {
           console.error(error);
+          setIsPaying(false);
           navigate(`/payment-failed`);
         }
       },
       modal: {
         ondismiss: function () {
           console.log("Payment popup closed");
+          setIsPaying(false);
           toast("Payment cancelled");
         },
       },
@@ -430,10 +459,12 @@ export function CheckoutPage() {
                 <Button
                   type="button"
                   size="lg"
+                  disabled={isPaying}
                   onClick={startPayment}
                   className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
                 >
-                  Pay with UPI
+                  {isPaying ? "Processing Payment..." : "Pay Now"}
+                  {/* Pay with UPI */}
                 </Button>
               </div>
             </div>

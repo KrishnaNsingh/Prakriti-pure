@@ -6,8 +6,6 @@ import connectDB from "./config/db.js";
 import testRoutes from "./routes/testRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
-console.log("😉server.js: paymentRoutes imported");
-
 
 // dotenv.config();
 connectDB();

@@ -10,6 +10,8 @@ import { CheckoutPage } from "./pages/CheckoutPage";
 import { AuthPage } from "./pages/AuthPage";
 import { AboutPage } from "./pages/AboutPage";
 import { Toaster } from "./components/ui/sonner";
+import { PaymentSuccess } from "./pages/PaymentSuccess";
+import { PaymentFailed } from "./pages/PaymentFailed";
 
 export default function App() {
   return (
@@ -26,6 +28,8 @@ export default function App() {
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/payment-success" element={<PaymentSuccess />} />
+              <Route path="/payment-failed" element={<PaymentFailed />} />
             </Routes>
           </main>
           <Footer />
