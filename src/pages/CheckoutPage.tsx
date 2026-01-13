@@ -9,8 +9,12 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { CreditCard, Smartphone, Banknote } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
+const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+
 
 export function CheckoutPage() {
+  
+  
   const navigate = useNavigate();
   const { cart, getCartTotal, clearCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState("card");
@@ -39,36 +43,35 @@ export function CheckoutPage() {
     return null;
   }
   const orderData = {
-      customer: {
-        firstName,
-        lastName,
-        email,
-        phone,
-      },
-      shippingAddress: {
-        address,
-        city,
-        state,
-        zip,
-        country,
-      },
-      cartItems: cart.map((item) => ({
-        productId: item.id,
-        name: item.name,
-        image: item.image,
-        price: item.price,
-        quantity: item.quantity,
-      })),
-      pricing: {
-        subtotal,
-        shipping,
-        total,
-      },
-    };
+    customer: {
+      firstName,
+      lastName,
+      email,
+      phone,
+    },
+    shippingAddress: {
+      address,
+      city,
+      state,
+      zip,
+      country,
+    },
+    cartItems: cart.map((item) => ({
+      productId: item.id,
+      name: item.name,
+      image: item.image,
+      price: item.price,
+      quantity: item.quantity,
+    })),
+    pricing: {
+      subtotal,
+      shipping,
+      total,
+    },
+  };
 
   // const handleSubmit = async (e: React.FormEvent) => {
   //   e.preventDefault();
-    
 
   //   try {
   //     await axios.post("http://localhost:5000/api/orders", orderData);
@@ -83,7 +86,7 @@ export function CheckoutPage() {
 
   const createOrder = async () => {
     const { data } = await axios.post(
-      "http://localhost:5000/api/orders",
+      `${API}/api/orders`,
       orderData
     );
 
@@ -95,7 +98,7 @@ export function CheckoutPage() {
     const orderId = mongoOrderId ?? (await createOrder());
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/payment/create-order",
+      `${API}/api/payment/create-order`,
       { orderId }
     );
 
@@ -118,14 +121,41 @@ export function CheckoutPage() {
         wallet: false,
       },
 
+      /*    check if payment successfull ! 
+
       handler: function (response: any) {
         // TEMP: just log
         console.log("Payment success", response);
-      },
+      },*/
+      handler: async function (response: any) {
+        console.log("🔥 RAZORPAY HANDLER FIRED", response);
+        try {
+          console.log("➡️ CALLING /verify API");
+          const verifyRes = await axios.post(
+            `${API}/api/payment/verify`,
+            {
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+            }
+          );
+          console.log("✅ /verify RESPONSE", verifyRes.data);
 
+          if (verifyRes.data.success) {
+            clearCart();
+            navigate(`/payment-success?orderId=${verifyRes.data.orderId}`);
+          } else {
+            navigate(`/payment-failed`);
+          }
+        } catch (error) {
+          console.error(error);
+          navigate(`/payment-failed`);
+        }
+      },
       modal: {
         ondismiss: function () {
           console.log("Payment popup closed");
+          toast("Payment cancelled");
         },
       },
     };

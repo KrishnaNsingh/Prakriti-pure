@@ -1,4 +1,4 @@
-export const paymentSuccessTemplate = ({ name, orderId, total }) => `
+const paymentSuccessTemplate = ({ name, orderId, total }) => `
   <h2>Payment Successful 🎉</h2>
   <p>Hi ${name},</p>
 
@@ -9,3 +9,5 @@ export const paymentSuccessTemplate = ({ name, orderId, total }) => `
 
   <p>Thank you for shopping with Prakriti Pure 🌿</p>
 `;
+
+export default paymentSuccessTemplate;

@@ -1,4 +1,4 @@
-export const paymentFailureTemplate = ({ name, orderId }) => `
+const paymentFailureTemplate = ({ name, orderId }) => `
   <h2>Payment Failed ❌</h2>
   <p>Hi ${name},</p>
 
@@ -8,3 +8,4 @@ export const paymentFailureTemplate = ({ name, orderId }) => `
 
   <p>— Prakriti Pure</p>
 `;
+export default paymentFailureTemplate;

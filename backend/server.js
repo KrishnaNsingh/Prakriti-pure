@@ -6,6 +6,8 @@ import connectDB from "./config/db.js";
 import testRoutes from "./routes/testRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+console.log("😉server.js: paymentRoutes imported");
+
 
 // dotenv.config();
 connectDB();
@@ -14,6 +16,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/test", testRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payment", paymentRoutes);

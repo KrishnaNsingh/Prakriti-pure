@@ -26,6 +26,9 @@ const orderSchema = new mongoose.Schema(
         quantity: { type: Number, required: true },
       },
     ],
+    razorpayOrderId: {
+      type: String,
+    },
 
     pricing: {
       subtotal: { type: Number, required: true },
@@ -33,12 +36,17 @@ const orderSchema = new mongoose.Schema(
       total: { type: Number, required: true },
     },
 
+    // paymentStatus: {
+    //   type: String,
+    //   default: "pending", // later: paid / failed
+    // },
     paymentStatus: {
       type: String,
-      default: "pending", // later: paid / failed
+      enum: ["pending", "paid", "failed"],
+      default: "pending",
     },
-    
-    razorpayOrderId: { type: String },
+    razorpayPaymentId: { type: String },
+    paidAt: { type: Date },
   },
   { timestamps: true }
 );
