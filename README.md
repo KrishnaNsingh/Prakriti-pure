@@ -1,254 +1,262 @@
-# 🌿 Prakriti Pure
+# 🌿 Prakriti Pure – Full Stack Ecommerce Platform
 
-Prakriti Pure is a **modern, minimal, wellness‑focused e‑commerce web application** built with **React + TypeScript + Vite**, designed for selling natural and herbal products. The project focuses on **clean UI, strong mobile UX, and production‑ready architecture**, while keeping the codebase simple and maintainable.
+Prakriti Pure is a **full‑stack ecommerce application** built with a modern MERN-style architecture, focused on **clean UX, secure payments, admin-friendly order management, and scalability**.
 
-This repository represents both a **learning‑driven full‑stack frontend project** and a **foundation for a real small‑scale business website**.
-
----
-
-## ✨ Key Highlights
-
-* 🌱 Clean, wellness‑inspired UI (green & neutral tones)
-* 📱 Mobile‑first responsive design
-* 🛒 Cart system with global state
-* 🔍 Product listing with filters (price, category, rating)
-* ⚡ Fast performance using Vite
-* 🧠 Strict TypeScript setup for long‑term maintainability
-* 🚀 Deployed on Vercel
-
-Live Demo: [https://prakriti-pure.vercel.app](https://prakriti-pure.vercel.app)
+This project was built step‑by‑step with production practices in mind, even while using free tiers during development.
 
 ---
 
-## 🛠 Tech Stack
+## ✨ Features
+
+### 🛍️ Frontend (React + Vite)
+
+* Modern responsive UI (Desktop + Mobile)
+* Product listing & product details pages
+* Cart management using React Context
+* Checkout flow with form validation
+* Razorpay UPI & Card payment integration
+* Payment success & failure pages
+* Sticky mobile CTAs & clean UX patterns
+* Google‑style toast notifications
+
+### ⚙️ Backend (Node.js + Express)
+
+* REST API architecture
+* MongoDB database with Mongoose
+* Secure Razorpay payment creation & verification
+* Email notifications (order success / failure)
+* Google Sheets integration for admin order tracking
+* Environment‑based configuration
+
+### 📊 Admin (Google Sheets)
+
+* Orders auto‑synced after successful payment
+* Manual **Completed / Incomplete** fulfillment toggle
+* No admin panel needed initially
+* Zero risk to database integrity
+
+---
+
+## 🧱 Tech Stack
 
 ### Frontend
 
-* **React 18** – UI library
-* **TypeScript** – Type safety and scalability
-* **Vite** – Fast build tool and dev server
-* **React Router v6** – Client‑side routing
+* React (Vite)
+* TypeScript
+* Tailwind CSS
+* Axios
+* React Router
 
-### Styling & UI
+### Backend
 
-* **Tailwind CSS** – Utility‑first styling
-* **shadcn/ui** – Accessible, composable UI components
-* **Radix UI** – Underlying primitives (Sheet, Checkbox, etc.)
-* **Lucide Icons** – Clean, modern icon set
+* Node.js
+* Express.js
+* MongoDB + Mongoose
+* Razorpay SDK
+* Nodemailer / Resend
+* Google Sheets API
 
-### State Management
+### Hosting
 
-* **React Context API** – Cart and global state
-
-### Deployment
-
-* **Vercel** – Hosting and CI/CD
+* Frontend: **Vercel**
+* Backend: **Render** (free tier during development)
+* Database: **MongoDB Atlas**
 
 ---
 
 ## 📁 Project Structure
 
 ```
-Prakriti_pure/
-├─ public/
-│  └─ images/              # Product & brand images (served statically)
-├─ src/
-│  ├─ assets/              # Local dev assets (not used in production paths)
-│  ├─ components/
-│  │  ├─ ui/               # shadcn/ui components
-│  │  ├─ Navigation.tsx
-│  │  ├─ Footer.tsx
-│  │  ├─ ProductCard.tsx
-│  │  └─ Rating.tsx
-│  ├─ context/
-│  │  └─ CartContext.tsx
-│  ├─ data/
-│  │  └─ products.ts       # Product data source
-│  ├─ pages/
-│  │  ├─ HomePage.tsx
-│  │  ├─ ShopPage.tsx
-│  │  ├─ ProductDetailsPage.tsx
-│  │  ├─ CartPage.tsx
-│  │  ├─ CheckoutPage.tsx
-│  │  └─ AboutPage.tsx
-│  ├─ styles/
-│  ├─ types/
-│  ├─ App.tsx
-│  ├─ main.tsx
-│  └─ index.css
-├─ tsconfig.json
-├─ vite.config.ts
-├─ package.json
-└─ README.md
+prakriti-pure/
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── utils/
+│   │   └── main.tsx
+│   └── .env
+│
+├── backend/
+│   ├── config/
+│   │   ├── db.js
+│   │   └── razorpay.js
+│   ├── models/
+│   │   └── Order.js
+│   ├── routes/
+│   │   ├── orderRoutes.js
+│   │   └── paymentRoutes.js
+│   ├── utils/
+│   │   ├── sendEmail.js
+│   │   ├── googleSheets.js
+│   │   ├── paymentSuccess.js
+│   │   └── paymentFailure.js
+│   ├── server.js
+│   └── .env
+│
+└── README.md
 ```
 
 ---
 
-## 🧩 Core Features
+## 🔐 Environment Variables
 
-### 🛍 Product Listing
+### Frontend `.env` (Vercel / Local)
 
-* Displays products using reusable `ProductCard` components
-* Ratings, pricing, and short descriptions
-* Responsive grid layout
+```env
+VITE_API_BASE_URL=http://localhost:5000
+VITE_RAZORPAY_KEY_ID=rzp_test_xxxxxxxxx
+```
 
-### 🎛 Filters (Mobile & Desktop)
-
-* Price range slider
-* Category selection
-* Minimum rating filter
-* Mobile‑optimized bottom sheet UI
-
-### 🛒 Cart System
-
-* Add/remove products
-* Quantity handling
-* Cart badge indicator
-* Global cart state using Context API
-
-### 📱 Mobile UX Focus
-
-* Slide‑in navigation menu
-* Bottom‑sheet filters
-* Touch‑friendly spacing and typography
-* Accessible components
+> ⚠️ Frontend env variables **must start with `VITE_`**
 
 ---
 
-## 🖼 Image Handling (Important)
+### Backend `.env` (Render / Local)
 
-Images are **served from the `public/` folder**, not `src/`, to ensure they work in production (Vercel).
+```env
+PORT=5000
 
-### Correct usage:
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/prakritiPureDB
+
+RAZORPAY_KEY_ID=rzp_test_xxxxxxxxx
+RAZORPAY_KEY_SECRET=xxxxxxxxx
+
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_email_password_or_api_key
+
+GOOGLE_SHEET_ID=xxxxxxxxxxxxxxxxxxxx
+GOOGLE_SERVICE_ACCOUNT={JSON_STRING_HERE}
+```
+
+⚠️ **Never commit `.env` files or service account JSON to GitHub**
+
+---
+
+## 💳 Payment Flow (Razorpay)
+
+1. User fills checkout form
+2. Order is created in MongoDB (status: `pending`)
+3. Backend creates Razorpay order
+4. Razorpay popup opens (UPI / Card)
+5. On success:
+
+   * Signature is verified on backend
+   * Order status updated to `paid`
+   * Email sent to user
+   * Order appended to Google Sheet
+6. User redirected to success page
+
+---
+
+## 📧 Email System
+
+* Email sent only **after payment verification**
+* Uses backend email utility (Nodemailer / Resend)
+* Supports:
+
+  * Payment success email
+  * Payment failure email
+
+> Production emails require a **custom domain** (e.g. `orders@prakriti-pure.com`)
+
+---
+
+## 📊 Google Sheets Admin Flow
+
+* Orders auto‑append after payment success
+* Each row includes:
+
+  * Order ID
+  * Customer details
+  * Product + quantity breakdown
+  * Total amount
+  * Payment status
+  * Fulfillment status (manual dropdown)
+
+> Google Sheets is **not synced back to DB** — it is admin‑only.
+
+---
+
+## 🕒 Timezone Handling
+
+* MongoDB stores all timestamps in **UTC**
+* Converted to **IST** when displaying:
 
 ```js
-image: "/images/D-Tan.jpeg"
-```
-
-### Why?
-
-* `src/` does not exist after build
-* `public/` files are served directly
-* Ensures consistent URLs in production
-
----
-
-## ⚙️ TypeScript Philosophy
-
-This project uses **strict TypeScript** intentionally:
-
-* `strict: true`
-* No implicit `any`
-* Explicit typing for events and callbacks
-
-### Why this matters:
-
-* Prevents hidden bugs
-* Improves refactoring safety
-* Makes the codebase scalable
-
-TypeScript errors are treated as **design feedback**, not annoyances.
-
----
-
-## 🚀 Getting Started Locally
-
-### 1️⃣ Clone the repository
-
-```bash
-git clone https://github.com/your-username/Prakriti-pure.git
-cd Prakriti-pure
-```
-
-### 2️⃣ Install dependencies
-
-```bash
-npm install
-```
-
-### 3️⃣ Run the development server
-
-```bash
-npm run dev
-```
-
-App will be available at:
-
-```
-http://localhost:5173
+new Date(order.createdAt).toLocaleString("en-IN", {
+  timeZone: "Asia/Kolkata",
+});
 ```
 
 ---
 
-## 🌍 Deployment
+## 🚀 Deployment Notes
 
-The project is deployed using **Vercel**.
+### Frontend (Vercel)
 
-### Deployment steps:
+* Push repo to GitHub
+* Import project into Vercel
+* Add frontend env variables
 
-1. Push code to GitHub
-2. Import repository into Vercel
-3. Vercel auto‑detects Vite + React
-4. Build & deploy
+### Backend (Render)
 
-No extra configuration required.
+* Create Web Service
+* Connect GitHub repo
+* Add backend env variables
+* Deploy
 
----
-
-## 🔮 Future Roadmap
-
-Planned improvements:
-
-* 💳 Payment gateway integration (Razorpay)
-* 📧 Order confirmation emails
-* 🔐 Authentication & user accounts
-* 📦 Backend API for products & orders
-* 🧾 Admin dashboard
-* 🌐 SEO & performance optimizations
-* ☁️ Cloudinary for advanced image handling
+> Free tier sleeps when inactive — upgrade for production use
 
 ---
 
-## 🎯 Project Goals
+## 🛡️ Security Practices
 
-This project was built to:
+* Payment verification done on backend only
+* Secrets stored in environment variables
+* No sensitive files committed
+* DB is single source of truth
+* Admin tools never mutate DB
 
-* Practice **real‑world frontend architecture**
-* Learn **TypeScript deeply (not superficially)**
-* Build a **deployable business‑ready UI**
-* Focus on **UX quality, not just features**
+---
+
+## 🧭 Future Improvements
+
+* Admin dashboard (React)
+* Order fulfillment syncing
+* Webhook‑based payment handling
+* Live Razorpay mode
+* Custom domain & branded emails
+* Performance & caching
 
 ---
 
 ## 🤝 Contributing
 
-This is currently a personal project, but suggestions and improvements are welcome.
-
-Steps:
-
 1. Fork the repository
-2. Create a feature branch
-3. Make changes
-4. Open a pull request
+2. Create a new branch
+3. Add features or fixes
+4. Submit a pull request
+
+Please ensure:
+
+* No secrets are committed
+* `.env.example` is updated if needed
+
+---
+
+## 🧡 Acknowledgements
+
+Built with patience, debugging, caffeine, and a lot of learning.
+
+This project reflects **real‑world full‑stack engineering practices**, not just tutorials.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License**.
+MIT License
 
 ---
 
-## 🙏 Acknowledgements
-
-* shadcn/ui
-* Radix UI
-* Lucide Icons
-* Vite
-* React Community
-
----
-
-### 🌿 Prakriti Pure
-
-*Pure • Natural • Conscious*
+**Prakriti Pure** — Clean code. Clean UX. Clean products 🌿
