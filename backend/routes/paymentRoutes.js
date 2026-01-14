@@ -6,6 +6,7 @@ import sendEmail from "../utils/sendEmail.js";
 // import { paymentSuccessTemplate, paymentFailureTemplate } from "../utils/paymentTemplates.js"; 
 import paymentSuccessTemplate from "../utils/paymentSuccess.js";
 import paymentFailureTemplate from "../utils/paymentFailure.js";
+import { appendOrderToSheet } from "../utils/googleSheets.js";
 
 
 // console.log("✅ paymentRoutes loaded");
@@ -91,11 +92,13 @@ router.post("/verify", async (req, res) => {
       // paymentStatus: order.paymentStatus,  
     });
 
-    sendEmail({
+    await sendEmail({
       to: order.customer.email,
       subject: "Order Confirmed – Prakriti Pure 🌿",
       html: paymentSuccessTemplate(order),
     }).catch(console.error);
+
+    await appendOrderToSheet(order);
 
   } catch (error) {
     // res.status(500).json({ message: error.message });
