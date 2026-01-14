@@ -157,7 +157,7 @@ const [isPaying, setIsPaying] = useState(false);
       handler: async function (response: any) {
         // console.log("🔥 RAZORPAY HANDLER FIRED", response);
         try {
-          console.log("➡️ CALLING /verify API");
+          // console.log("➡️ CALLING /verify API");
           const verifyRes = await axios.post(
             `${API}/api/payment/verify`,
             {

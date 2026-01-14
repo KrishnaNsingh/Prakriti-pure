@@ -91,13 +91,11 @@ router.post("/verify", async (req, res) => {
       // paymentStatus: order.paymentStatus,  
     });
 
-    sendEmail(
-      order.customer.email,
-      "Payment Successful - Prakriti Pure",
-      paymentSuccessTemplate(order)
-    ).catch(err => {
-  console.error("Email failed:", err);
-});
+    sendEmail({
+  to: order.customer.email,
+  subject: "Order Confirmed – Prakriti Pure 🌿",
+  html: paymentSuccessTemplate(order),
+}).catch(console.error);
 
   } catch (error) {
     // res.status(500).json({ message: error.message });
@@ -118,7 +116,7 @@ router.post("/verify", async (req, res) => {
 //   const order = await Order.findById(orderId);
 //   if (!order) return res.status(404).json({});
 
-//   order.paymentStatus = "failed";   ❗ can over write
+//   order.paymentStatus = "failed";   ❗ any one can over write
 //   await order.save();
 
 //   await sendEmail(
@@ -153,16 +151,42 @@ router.post("/failure", async (req, res) => {
     res.json({ success: true });
 
     // Email as side-effect (non-blocking)
-    sendEmail(
-      order.customer.email,
-      "Payment Failed - Prakriti Pure",
-      paymentFailureTemplate(order)
-    ).catch(console.error);
+    // sendEmail(
+    //   order.customer.email,
+    //   "Payment Failed - Prakriti Pure",
+    //   paymentFailureTemplate(order)
+    // ).catch(console.error);
+    sendEmail({
+      to: order.customer.email,
+      subject: "Payment Failed – Prakriti Pure 🌿",
+      html: paymentFailureTemplate(order),
+    }).catch(console.error);
 
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+// router.get("/email-test", async (req, res) => {
+//   try {
+//     // await sendEmail(
+//     //   "krishna65255@gmail.com",
+//     //   "Test Email – Prakriti Pure",
+//     //   "<h1>Email system works ✅</h1>"
+//     // );
+//     await sendEmail({
+//       to: "krishna65255@gmail.com",
+//       subject: "Test Email",
+//       html: "<h1>Works</h1>",
+//     });
+//     res.send("Email sent");
+//   } catch (err) {
+//     console.error("EMAIL ERROR 👉", err);   // 👈 THIS
+//     res.status(500).send("Email failed");
+//   }
+// });
+
+
 
 export default router;
