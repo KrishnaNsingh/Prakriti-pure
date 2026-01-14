@@ -92,10 +92,10 @@ router.post("/verify", async (req, res) => {
     });
 
     sendEmail({
-  to: order.customer.email,
-  subject: "Order Confirmed – Prakriti Pure 🌿",
-  html: paymentSuccessTemplate(order),
-}).catch(console.error);
+      to: order.customer.email,
+      subject: "Order Confirmed – Prakriti Pure 🌿",
+      html: paymentSuccessTemplate(order),
+    }).catch(console.error);
 
   } catch (error) {
     // res.status(500).json({ message: error.message });
@@ -186,6 +186,20 @@ router.post("/failure", async (req, res) => {
 //     res.status(500).send("Email failed");
 //   }
 // });
+router.get("/email-test", async (req, res) => {
+  try {
+    await sendEmail({
+      to: "krishnanarayansingh65@gmail.com",
+      subject: "Resend Test – Prakriti Pure",
+      html: "<h1>Resend works 🎉</h1>",
+    });
+    res.send("Email sent");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Email failed");
+  }
+});
+
 
 
 

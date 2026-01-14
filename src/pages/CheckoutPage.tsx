@@ -12,12 +12,7 @@ import { toast } from "sonner";
 import axios from "axios";
 const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
-
-
-
 export function CheckoutPage() {
-  
-  
   const navigate = useNavigate();
   const { cart, getCartTotal, clearCart } = useCart();
   const [paymentMethod, setPaymentMethod] = useState("card");
@@ -51,7 +46,6 @@ export function CheckoutPage() {
     }
   }, [cart.length, mongoOrderId, navigate]);
 
-  
   const orderData = {
     customer: {
       firstName,
@@ -95,42 +89,37 @@ export function CheckoutPage() {
   // };
 
   const createOrder = async () => {
-    const { data } = await axios.post(
-      `${API}/api/orders`,
-      orderData
-    );
+    const { data } = await axios.post(`${API}/api/orders`, orderData);
 
     setMongoOrderId(data._id);
     return data._id;
   };
 
-  
-const [isPaying, setIsPaying] = useState(false);
+  const [isPaying, setIsPaying] = useState(false);
   //start payment
   const startPayment = async () => {
     // prevent double click
     if (isPaying) return;
-    //check if all form are filled 
+    //check if all form are filled
     if (!firstName || !email || !phone || !address) {
       toast.error("Please fill all required fields");
       return;
     }
-     try {
-    setIsPaying(true);
+    try {
+      setIsPaying(true);
 
-    const orderId = mongoOrderId ?? (await createOrder());
+      const orderId = mongoOrderId ?? (await createOrder());
 
-    const { data } = await axios.post(
-      `${API}/api/payment/create-order`,
-      { orderId }
-    );
+      const { data } = await axios.post(`${API}/api/payment/create-order`, {
+        orderId,
+      });
 
-    openRazorpay(data);
-  } catch (error) {
-    toast.error("Unable to start payment");
-    setIsPaying(false);
-  }
-};
+      openRazorpay(data);
+    } catch (error) {
+      toast.error("Unable to start payment");
+      setIsPaying(false);
+    }
+  };
 
   const openRazorpay = (razorpayOrder: any) => {
     const options = {
@@ -158,14 +147,11 @@ const [isPaying, setIsPaying] = useState(false);
         // console.log("🔥 RAZORPAY HANDLER FIRED", response);
         try {
           // console.log("➡️ CALLING /verify API");
-          const verifyRes = await axios.post(
-            `${API}/api/payment/verify`,
-            {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-            }
-          );
+          const verifyRes = await axios.post(`${API}/api/payment/verify`, {
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+          });
           // console.log("✅ /verify RESPONSE", verifyRes.data);
 
           if (verifyRes.data.success) {
@@ -448,24 +434,32 @@ const [isPaying, setIsPaying] = useState(false);
                   </div>
                 </div>
 
-                {/* <Button
-                  type="submit"
-                  size="lg"
-                  onClick={startPayment} 
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
-                >
-                  Place Orderd
-                </Button> */}
-                <Button
-                  type="button"
-                  size="lg"
-                  disabled={isPaying}
-                  onClick={startPayment}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
-                >
-                  {isPaying ? "Processing Payment..." : "Pay Now"}
-                  {/* Pay with UPI */}
-                </Button>
+                {/* Desktop Pay Button */}
+                <div className="hidden md:block">
+                  <Button
+                    type="button"
+                    size="lg"
+                    className="w-full bg-primary text-primary-foreground rounded-full"
+                    onClick={startPayment}
+                    disabled={isPaying}
+                  >
+                    {isPaying ? "Processing..." : "Pay Now"}
+                  </Button>
+                </div>
+                
+                {/* Mobile Pay Button */}
+                <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white p-4 shadow-lg">
+                  <Button
+                    type="button"
+                    size="lg"
+                    disabled={isPaying}
+                    onClick={startPayment}
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
+                  >
+                    {isPaying ? "Processing Payment..." : "Pay Now"}
+                    {/* Pay with UPI */}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

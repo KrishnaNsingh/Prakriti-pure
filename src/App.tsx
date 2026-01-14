@@ -12,6 +12,7 @@ import { AboutPage } from "./pages/AboutPage";
 import { Toaster } from "./components/ui/sonner";
 import { PaymentSuccess } from "./pages/PaymentSuccess";
 import { PaymentFailed } from "./pages/PaymentFailed";
+import  ScrollToTop  from "./components/ScrollToTop";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
         <div className="flex flex-col min-h-screen">
           <Navigation />
           <main className="flex-1">
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/shop" element={<ShopPage />} />
