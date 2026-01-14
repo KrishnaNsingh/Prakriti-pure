@@ -3,11 +3,10 @@ import crypto from "crypto";
 import razorpayInstance from "../config/razorpay.js";
 import Order from "../models/Order.js";
 import sendEmail from "../utils/sendEmail.js";
-// import { paymentSuccessTemplate, paymentFailureTemplate } from "../utils/paymentTemplates.js"; 
+// import { paymentSuccessTemplate, paymentFailureTemplate } from "../utils/paymentTemplates.js";
 import paymentSuccessTemplate from "../utils/paymentSuccess.js";
 import paymentFailureTemplate from "../utils/paymentFailure.js";
 import { appendOrderToSheet } from "../utils/googleSheets.js";
-
 
 // console.log("✅ paymentRoutes loaded");
 
@@ -41,15 +40,10 @@ router.post("/create-order", async (req, res) => {
   }
 });
 
-
 router.post("/verify", async (req, res) => {
   try {
-    const {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-    } = req.body;
-
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+      req.body;
 
     // 1. Generate signature
     const body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -66,30 +60,29 @@ router.post("/verify", async (req, res) => {
       return res.status(400).json({ message: "Invalid payment signature" });
     }
 
-    
-
     // 3. Find order by Razorpay order ID
     const order = await Order.findOne({ razorpayOrderId: razorpay_order_id });
-
-    
-
 
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
 
     // 4. Update order status
-    order.paymentStatus = "paid"; 
+    order.paymentStatus = "paid";
     order.razorpayPaymentId = razorpay_payment_id;
     order.paidAt = new Date();
 
     await order.save();
 
+    try {
+      await appendOrderToSheet(order);
+    } catch (err) {
+      console.error("Google Sheet failed:", err.message);
+    }
+
     res.status(200).json({
       success: true,
-      // message: "Payment verified successfully",
       orderId: order._id,
-      // paymentStatus: order.paymentStatus,  
     });
 
     await sendEmail({
@@ -97,11 +90,7 @@ router.post("/verify", async (req, res) => {
       subject: "Order Confirmed – Prakriti Pure 🌿",
       html: paymentSuccessTemplate(order),
     }).catch(console.error);
-
-    await appendOrderToSheet(order);
-
   } catch (error) {
-    // res.status(500).json({ message: error.message });
     console.error(error);
     return res.status(500).json({
       success: false,
@@ -164,7 +153,6 @@ router.post("/failure", async (req, res) => {
       subject: "Payment Failed – Prakriti Pure 🌿",
       html: paymentFailureTemplate(order),
     }).catch(console.error);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -189,21 +177,18 @@ router.post("/failure", async (req, res) => {
 //     res.status(500).send("Email failed");
 //   }
 // });
-router.get("/email-test", async (req, res) => {
-  try {
-    await sendEmail({
-      to: "krishnanarayansingh65@gmail.com",
-      subject: "Resend Test – Prakriti Pure",
-      html: "<h1>Resend works 🎉</h1>",
-    });
-    res.send("Email sent");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Email failed");
-  }
-});
-
-
-
+// router.get("/email-test", async (req, res) => {
+//   try {
+//     await sendEmail({
+//       to: "krishnanarayansingh65@gmail.com",
+//       subject: "Resend Test – Prakriti Pure",
+//       html: "<h1>Resend works 🎉</h1>",
+//     });
+//     res.send("Email sent");
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send("Email failed");
+//   }
+// });
 
 export default router;
