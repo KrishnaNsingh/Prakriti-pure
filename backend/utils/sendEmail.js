@@ -1,9 +1,10 @@
 import nodemailer from "nodemailer";
 
-console.log("EMAIL USER:", process.env.EMAIL_USER);
-console.log("EMAIL PASS:", process.env.EMAIL_PASS?.length);
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  // service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -11,12 +12,20 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendEmail = async ({ to, subject, html }) => {
+   try {
+      console.log("📧 Attempting email to:", to);
+      // Your email sending logic goes here, e.g.:
+      // await sendEmail(to); 
+    } catch (err) {
+      console.error("EMAIL SEND ERROR:", err);
+    }
   await transporter.sendMail({
     from: `"Prakriti Pure" <${process.env.EMAIL_USER}>`,
     to,
     subject,
     html,
   });
+ 
 };
 
 export default sendEmail;
