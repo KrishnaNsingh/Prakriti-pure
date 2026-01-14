@@ -2,13 +2,16 @@ import { google } from "googleapis";
 import path from "path";
 
 const auth = new google.auth.GoogleAuth({
-//   keyFile: path.join(process.cwd(), "config/googleServiceAccount.json"),  // made .env on render...
+  //   keyFile: path.join(process.cwd(), "config/googleServiceAccount.json"),  // made .env on render...
   credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT),
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
 
 export const appendOrderToSheet = async (order) => {
   const sheets = google.sheets({ version: "v4", auth });
+  const istDate = new Date(order.createdAt).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  });
 
   const values = [
     [
@@ -21,7 +24,8 @@ export const appendOrderToSheet = async (order) => {
       order.pricing.total,
       order.paymentStatus,
       order.razorpayPaymentId || "-",
-      new Date(order.createdAt).toLocaleString(),
+    //   new Date(order.createdAt).toLocaleString(),
+      istDate,
       "Incomplete",
     ],
   ];
