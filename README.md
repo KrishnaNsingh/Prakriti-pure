@@ -129,8 +129,6 @@ GOOGLE_SHEET_ID=xxxxxxxxxxxxxxxxxxxx
 GOOGLE_SERVICE_ACCOUNT={JSON_STRING_HERE}
 ```
 
-⚠️ **Never commit `.env` files or service account JSON to GitHub**
-
 ---
 
 ## 💳 Payment Flow (Razorpay)
@@ -180,7 +178,7 @@ GOOGLE_SERVICE_ACCOUNT={JSON_STRING_HERE}
 
 ## 🕒 Timezone Handling
 
-* MongoDB stores all timestamps in **UTC**
+<!---* MongoDB stores all timestamps in **UTC**
 * Converted to **IST** when displaying:
 
 ```js
@@ -189,7 +187,7 @@ new Date(order.createdAt).toLocaleString("en-IN", {
 });
 ```
 
----
+--->
 
 ## 🚀 Deployment Notes
 
