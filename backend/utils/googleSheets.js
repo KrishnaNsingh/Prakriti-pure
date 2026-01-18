@@ -1,9 +1,26 @@
 import { google } from "googleapis";
 import path from "path";
 
+let serviceAccount;
+
+if (process.env.GOOGLE_SERVICE_ACCOUNT) {
+  // Render / production
+  serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
+} else if (process.env.GOOGLE_SERVICE_ACCOUNT_BASE64) {
+  // Local (Windows-safe)
+  serviceAccount = JSON.parse(
+    Buffer.from(
+      process.env.GOOGLE_SERVICE_ACCOUNT_BASE64,
+      "base64"
+    ).toString("utf-8")
+  );
+} else {
+  throw new Error("Google Service Account credentials missing");
+}
+
 const auth = new google.auth.GoogleAuth({
-  //   keyFile: path.join(process.cwd(), "config/googleServiceAccount.json"),  // made .env on render...
-  credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT),
+    // keyFile: path.join(process.cwd(), "config/googleServiceAccount.json"),  // made .env on render...
+  credentials: serviceAccount,
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
 
