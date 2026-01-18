@@ -33,17 +33,24 @@ router.post(
         const razorpayOrderId = payment.order_id;
 
         const order = await Order.findOne({ razorpayOrderId });
+        console.log("🔥 WEBHOOK EVENT:", req.body.event);
+console.log("🔎 ORDER ID:", orderIdFromWebhook);
 
-        if (order && order.paymentStatus !== "paid") {
+        if (!order) {
+          console.log("❌ Order not found for:", orderIdFromWebhook);
+          return res.status(200).json({ ok: true }); // still ACK webhook
+        }
+
+        if (order.paymentStatus !== "paid") {
           order.paymentStatus = "paid";
-          order.razorpayPaymentId = payment.id;
+          order.razorpayPaymentId = razorpay_payment_id;
           order.paidAt = new Date();
           await order.save();
 
           await sendEmail(
             order.customer.email,
             "Payment Successful - Prakriti Pure",
-            paymentSuccessTemplate(order)
+            paymentSuccessTemplate(order),
           );
         }
       }
@@ -55,14 +62,14 @@ router.post(
 
         const order = await Order.findOne({ razorpayOrderId });
 
-        if (order && order.paymentStatus !== "failed") {
+        if (order.paymentStatus !== "failed") {
           order.paymentStatus = "failed";
           await order.save();
 
           await sendEmail(
             order.customer.email,
             "Payment Failed - Prakriti Pure",
-            paymentFailureTemplate(order)
+            paymentFailureTemplate(order),
           );
         }
       }
@@ -72,7 +79,7 @@ router.post(
       console.error("Webhook error:", err);
       res.status(500).json({ error: "Webhook handler failed" });
     }
-  }
+  },
 );
 
 export default router;
