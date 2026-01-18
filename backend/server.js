@@ -11,6 +11,7 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 connectDB();
 
 const app = express();
+app.use("/api/webhook", webhookRoutes);
 
 app.use(cors());
 app.use(express.json());
