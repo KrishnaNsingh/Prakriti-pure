@@ -39,6 +39,7 @@ router.post("/create-order", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+{/*
 
 router.post("/verify", async (req, res) => {
   try {
@@ -157,7 +158,7 @@ router.post("/failure", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
-});
+}); */}
 
 // router.get("/email-test", async (req, res) => {
 //   try {
