@@ -137,12 +137,6 @@ export function CheckoutPage() {
         wallet: false,
       },
 
-      /*    check if payment successfull ! 
-
-      handler: function (response: any) {
-        // TEMP: just log
-        console.log("Payment success", response);
-      },*/
       // handler: async function (response: any) {
       //   // console.log("🔥 RAZORPAY HANDLER FIRED", response);
       //   try {
@@ -167,9 +161,9 @@ export function CheckoutPage() {
       //   }
       // },
       handler: function () {
-      clearCart();
-      navigate("/payment-success");
-    },
+        clearCart();
+        navigate("/payment-success");
+      },
       modal: {
         ondismiss: function () {
           console.log("Payment popup closed");
