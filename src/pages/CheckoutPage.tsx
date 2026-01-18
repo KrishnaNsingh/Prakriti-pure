@@ -74,20 +74,6 @@ export function CheckoutPage() {
     },
   };
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     await axios.post("http://localhost:5000/api/orders", orderData);
-  //     toast.success("Order placed successfully!");
-  //     clearCart();
-  //     setTimeout(() => navigate("/"), 2000);
-  //   } catch (error) {
-  //     toast.error("Order failed");
-  //     console.error(error);
-  //   }
-  // };
-
   const createOrder = async () => {
     const { data } = await axios.post(`${API}/api/orders`, orderData);
 
@@ -136,30 +122,6 @@ export function CheckoutPage() {
         netbanking: false,
         wallet: false,
       },
-
-      // handler: async function (response: any) {
-      //   // console.log("🔥 RAZORPAY HANDLER FIRED", response);
-      //   try {
-      //     // console.log("➡️ CALLING /verify API");
-      //     const verifyRes = await axios.post(`${API}/api/payment/verify`, {
-      //       razorpay_payment_id: response.razorpay_payment_id,
-      //       razorpay_order_id: response.razorpay_order_id,
-      //       razorpay_signature: response.razorpay_signature,
-      //     });
-      //     // console.log("✅ /verify RESPONSE", verifyRes.data);
-
-      //     if (verifyRes.data.success) {
-      //       clearCart();
-      //       navigate(`/payment-success?orderId=${verifyRes.data.orderId}`);
-      //     } else {
-      //       navigate(`/payment-failed`);
-      //     }
-      //   } catch (error) {
-      //     console.error(error);
-      //     setIsPaying(false);
-      //     navigate(`/payment-failed`);
-      //   }
-      // },
       handler: function () {
         clearCart();
         navigate("/payment-success");
@@ -295,90 +257,6 @@ export function CheckoutPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Payment Method */}
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="mb-6">Payment Method</h3>
-                <RadioGroup
-                  value={paymentMethod}
-                  onValueChange={setPaymentMethod}
-                >
-                  <div className="space-y-3">
-                    {/* <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
-                      <RadioGroupItem value="card" id="card" />
-                      <Label htmlFor="card" className="flex items-center gap-2 cursor-pointer flex-1">
-                        <CreditCard className="w-5 h-5" />
-                        Credit / Debit Card
-                      </Label>
-                    </div> */}
-                    <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
-                      <RadioGroupItem value="upi" id="upi" />
-                      <Label
-                        htmlFor="upi"
-                        className="flex items-center gap-2 cursor-pointer flex-1"
-                      >
-                        <Smartphone className="w-5 h-5" />
-                        UPI
-                      </Label>
-                    </div>
-                    {/* <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary transition-colors cursor-pointer">
-                      <RadioGroupItem value="cod" id="cod" />
-                      <Label htmlFor="cod" className="flex items-center gap-2 cursor-pointer flex-1">
-                        <Banknote className="w-5 h-5" />
-                        Cash on Delivery
-                      </Label>
-                    </div> */}
-                  </div>
-                </RadioGroup>
-
-                {/* Card Details */}
-                {/* {paymentMethod === "card" && (
-                  <div className="mt-6 space-y-4">
-                    <div>
-                      <Label htmlFor="cardNumber">Card Number</Label>
-                      <Input
-                        id="cardNumber"
-                        placeholder="1234 5678 9012 3456"
-                        required={paymentMethod === "card"}
-                        className="mt-2"
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="expiry">Expiry Date</Label>
-                        <Input
-                          id="expiry"
-                          placeholder="MM/YY"
-                          required={paymentMethod === "card"}
-                          className="mt-2"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="cvv">CVV</Label>
-                        <Input
-                          id="cvv"
-                          placeholder="123"
-                          required={paymentMethod === "card"}
-                          className="mt-2"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )} */}
-
-                {/* UPI Details */}
-                {/* {paymentMethod === "upi" && (
-                  <div className="mt-6">
-                    <Label htmlFor="upiId">UPI ID</Label>
-                    <Input
-                      id="upiId"
-                      placeholder="yourname@upi"
-                      required={paymentMethod === "upi"}
-                      className="mt-2"
-                    />
-                  </div>
-                )} */}
-              </div>
             </div>
 
             {/* Order Summary */}
@@ -444,7 +322,7 @@ export function CheckoutPage() {
                     {isPaying ? "Processing..." : "Pay Now"}
                   </Button>
                 </div>
-                
+
                 {/* Mobile Pay Button */}
                 <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white p-4 shadow-lg">
                   <Button

@@ -7,7 +7,7 @@ import { ShopPage } from "./pages/ShopPage";
 import { ProductDetailsPage } from "./pages/ProductDetailsPage";
 import { CartPage } from "./pages/CartPage";
 import { CheckoutPage } from "./pages/CheckoutPage";
-import { AuthPage } from "./pages/AuthPage";
+// import { AuthPage } from "./pages/AuthPage";
 import { AboutPage } from "./pages/AboutPage";
 import { Toaster } from "./components/ui/sonner";
 import { PaymentSuccess } from "./pages/PaymentSuccess";
@@ -28,7 +28,7 @@ export default function App() {
               <Route path="/product/:id" element={<ProductDetailsPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/auth" element={<AuthPage />} />
+              {/* <Route path="/auth" element={<AuthPage />} /> */}
               <Route path="/about" element={<AboutPage />} />
               <Route path="/payment-success" element={<PaymentSuccess />} />
               <Route path="/payment-failed" element={<PaymentFailed />} />

@@ -238,7 +238,7 @@ const toggleSection = (section: string) => {
         {/* Bottom Bar */}
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2025 PRAKRITI PURE. All rights reserved.
+            © 2026 PRAKRITI PURE. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <a
