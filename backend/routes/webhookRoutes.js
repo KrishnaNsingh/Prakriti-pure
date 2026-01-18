@@ -41,10 +41,9 @@ router.post(
 
         if (!order) {
           console.log("❌ Order not found for:", razorpayOrderId);
-          return res.status(200).json({ ok: true });
         }
 
-        if (order.paymentStatus !== "paid") {
+        else if (order.paymentStatus !== "paid") {
           order.paymentStatus = "paid";
           order.razorpayPaymentId = razorpayPaymentId;
           order.paidAt = new Date();
@@ -56,10 +55,7 @@ router.post(
             console.error("Google Sheet failed:", err.message);
           }
 
-          res.status(200).json({
-            success: true,
-            orderId: order._id,
-          });
+
 
           await sendEmail(
             order.customer.email,
@@ -92,6 +88,7 @@ router.post(
         }
       }
 
+      // ✅ ACK ONCE (ALWAYS)
       res.status(200).json({ ok: true });
     } catch (err) {
       console.error("🔥 Webhook error:", err);
