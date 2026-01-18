@@ -9,6 +9,7 @@ build/
 .env
 .env.local
 .env.*.local
+.env.*
 backend/node_modules
 backend/.env
 

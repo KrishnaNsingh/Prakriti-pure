@@ -39,6 +39,7 @@ router.post("/create-order", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+export default router;
 {/*
 
 router.post("/verify", async (req, res) => {
@@ -192,4 +193,4 @@ router.post("/failure", async (req, res) => {
 //   }
 // });
 
-export default router;
+
