@@ -4,6 +4,7 @@ import Order from "../models/Order.js";
 import sendEmail from "../utils/sendEmail.js";
 import paymentSuccessTemplate from "../utils/paymentSuccess.js";
 import paymentFailureTemplate from "../utils/paymentFailure.js";
+import { appendOrderToSheet } from "../utils/googleSheets.js";
 
 const router = express.Router();
 
@@ -49,10 +50,21 @@ router.post(
           order.paidAt = new Date();
           await order.save();
 
+          try {
+            await appendOrderToSheet(order);
+          } catch (err) {
+            console.error("Google Sheet failed:", err.message);
+          }
+
+          res.status(200).json({
+            success: true,
+            orderId: order._id,
+          });
+
           await sendEmail(
             order.customer.email,
             "Payment Successful - Prakriti Pure",
-            paymentSuccessTemplate(order)
+            paymentSuccessTemplate(order),
           );
 
           console.log("✅ Order marked PAID:", order._id);
@@ -73,7 +85,7 @@ router.post(
           await sendEmail(
             order.customer.email,
             "Payment Failed - Prakriti Pure",
-            paymentFailureTemplate(order)
+            paymentFailureTemplate(order),
           );
 
           console.log("❌ Order marked FAILED:", order._id);
@@ -85,7 +97,7 @@ router.post(
       console.error("🔥 Webhook error:", err);
       res.status(200).json({ ok: true }); // still ACK
     }
-  }
+  },
 );
 
 export default router;
