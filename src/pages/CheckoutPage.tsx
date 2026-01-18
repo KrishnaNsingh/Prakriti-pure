@@ -143,29 +143,33 @@ export function CheckoutPage() {
         // TEMP: just log
         console.log("Payment success", response);
       },*/
-      handler: async function (response: any) {
-        // console.log("🔥 RAZORPAY HANDLER FIRED", response);
-        try {
-          // console.log("➡️ CALLING /verify API");
-          const verifyRes = await axios.post(`${API}/api/payment/verify`, {
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_signature: response.razorpay_signature,
-          });
-          // console.log("✅ /verify RESPONSE", verifyRes.data);
+      // handler: async function (response: any) {
+      //   // console.log("🔥 RAZORPAY HANDLER FIRED", response);
+      //   try {
+      //     // console.log("➡️ CALLING /verify API");
+      //     const verifyRes = await axios.post(`${API}/api/payment/verify`, {
+      //       razorpay_payment_id: response.razorpay_payment_id,
+      //       razorpay_order_id: response.razorpay_order_id,
+      //       razorpay_signature: response.razorpay_signature,
+      //     });
+      //     // console.log("✅ /verify RESPONSE", verifyRes.data);
 
-          if (verifyRes.data.success) {
-            clearCart();
-            navigate(`/payment-success?orderId=${verifyRes.data.orderId}`);
-          } else {
-            navigate(`/payment-failed`);
-          }
-        } catch (error) {
-          console.error(error);
-          setIsPaying(false);
-          navigate(`/payment-failed`);
-        }
-      },
+      //     if (verifyRes.data.success) {
+      //       clearCart();
+      //       navigate(`/payment-success?orderId=${verifyRes.data.orderId}`);
+      //     } else {
+      //       navigate(`/payment-failed`);
+      //     }
+      //   } catch (error) {
+      //     console.error(error);
+      //     setIsPaying(false);
+      //     navigate(`/payment-failed`);
+      //   }
+      // },
+      handler: function () {
+      clearCart();
+      navigate("/payment-success");
+    },
       modal: {
         ondismiss: function () {
           console.log("Payment popup closed");
