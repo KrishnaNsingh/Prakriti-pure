@@ -79,7 +79,7 @@ export function CheckoutPage() {
   };
 
   const createOrder = async () => {
-    const { data } = await axios.post(`${API}/api/orders`, orderData);
+    const { data } = await axios.post(`${API}/api/orders/create`, orderData);
 
     setMongoOrderId(data._id);
     return data._id;
