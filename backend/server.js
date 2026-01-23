@@ -10,8 +10,9 @@ import orderRoutes from "./routes/orderRoutes.js";
 import paymentRoutes from "./routes/webhookRoutes.js";
 
 connectDB();
-app.set("trust proxy", 1);
+
 const app = express();
+app.set("trust proxy", 1);
 const requiredEnvVars = ['MONGO_URI', 'RAZORPAY_KEY_ID', 'RAZORPAY_KEY_SECRET'];
 requiredEnvVars.forEach(varName => {
   if (!process.env[varName]) {
