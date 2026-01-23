@@ -10,7 +10,7 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { CreditCard, Smartphone, Banknote } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
-const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+const API = import.meta.env.VITE_API_BASE_URL || "https://localhost:5000";
 
 export function CheckoutPage() {
   const navigate = useNavigate();
