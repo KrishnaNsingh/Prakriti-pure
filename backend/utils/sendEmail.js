@@ -20,7 +20,7 @@ export default async function sendEmail(to, subject, html) {
   if (!assertEmailConfig()) return;
   try {
     await resend.emails.send({
-      from: "Prakriti Pure <no-reply@prakriti-pure.com>",
+      from: "Prakriti Pure <orders@prakriti-pure.com>",
       to,
       subject,
       html,
