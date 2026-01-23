@@ -80,9 +80,9 @@ export const products: Product[] = [
   },
   {
     id: "6",
-    name: "Natural Blush Palette",
+    name: "Glow Face Pack",
     price: 38.00,
-    image: "https://images.unsplash.com/photo-1627921522614-86d4b431bd21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb3NtZXRpY3MlMjBtYWtldXB8ZW58MXx8fHwxNzYzMjEzNDMxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    image: "/images/Glow-face-pack.jpeg",
     category: "Makeup",
     rating: 4.5,
     description: "Four blendable shades for a natural flush.",
@@ -90,9 +90,9 @@ export const products: Product[] = [
   },
   {
     id: "7",
-    name: "Botanical Hand Cream",
+    name: "Herbal D-Tan Clenser Powder",
     price: 22.00,
-    image: "https://images.unsplash.com/photo-1599847935464-fde3827639c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuYXR1cmFsJTIwc2tpbmNhcmV8ZW58MXx8fHwxNzYzMDk4NzgzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    image: "/images/Herbal D-Tan Clenser Powder.jpeg",
     category: "Body Care",
     rating: 4.4,
     description: "Protect and soften your hands with botanical extracts.",

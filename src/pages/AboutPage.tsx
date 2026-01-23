@@ -52,36 +52,36 @@ export function AboutPage() {
     }
   ];
 
-  const careerPositions = [
-    {
-      id: 1,
-      title: "Senior Product Manager",
-      department: "Product",
-      location: "Mumbai, India",
-      type: "Full-time"
-    },
-    {
-      id: 2,
-      title: "Beauty Content Creator",
-      department: "Marketing",
-      location: "Bangalore, India",
-      type: "Full-time"
-    },
-    {
-      id: 3,
-      title: "Customer Success Specialist",
-      department: "Support",
-      location: "Delhi, India",
-      type: "Full-time"
-    },
-    {
-      id: 4,
-      title: "Supply Chain Coordinator",
-      department: "Operations",
-      location: "Mumbai, India",
-      type: "Full-time"
-    }
-  ];
+  // const careerPositions = [
+  //   {
+  //     id: 1,
+  //     title: "Senior Product Manager",
+  //     department: "Product",
+  //     location: "Mumbai, India",
+  //     type: "Full-time"
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Beauty Content Creator",
+  //     department: "Marketing",
+  //     location: "Bangalore, India",
+  //     type: "Full-time"
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Customer Success Specialist",
+  //     department: "Support",
+  //     location: "Delhi, India",
+  //     type: "Full-time"
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Supply Chain Coordinator",
+  //     department: "Operations",
+  //     location: "Mumbai, India",
+  //     type: "Full-time"
+  //   }
+  // ];
 
   return (
     <div className="min-h-screen">
