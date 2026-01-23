@@ -10,7 +10,7 @@ import { appendOrderToSheet } from "../utils/googleSheets.js";
 
 // console.log("✅ paymentRoutes loaded");
 
-const router = express.Router();
+// const router = express.Router();
 // router.get("/test", (req, res) => {
 //   res.send("PAYMENT ROUTE WORKS");
 // });
