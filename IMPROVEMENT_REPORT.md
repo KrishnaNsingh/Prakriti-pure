@@ -1,7 +1,6 @@
 # 📊 Prakriti Pure - Project Improvement Report
 
 **Generated:** January 2025  
-**Last Updated:** January 23, 2025  
 **Project Type:** Full-Stack E-commerce Application (MERN Stack)
 
 ---
@@ -86,57 +85,60 @@ This report provides a comprehensive analysis of your Prakriti Pure e-commerce a
 
 ---
 
-### 5. **Cart Persistence Implementation**
-**Location:** `src/context/CartContext.tsx`
-
-**Improvements Made:**
-- ✅ Added localStorage persistence for cart data
-- ✅ Cart now persists across page refreshes and browser sessions
-- ✅ Initial state loads from localStorage on component mount
-- ✅ Cart automatically syncs to localStorage on every update
-
-**Impact:** Significantly improved user experience - users no longer lose their cart when refreshing the page or navigating away.
-
----
-
-### 6. **Health Check Endpoint**
+### 5. **Security Enhancements - CORS Configuration**
 **Location:** `backend/server.js`
 
 **Improvements Made:**
-- ✅ Added `/health` endpoint for monitoring and status checks
-- ✅ Returns simple JSON response with status indicator
-- ✅ Useful for deployment platforms and monitoring tools
+- ✅ Implemented proper CORS configuration with environment variable support
+- ✅ Allows server-to-server requests and webhooks (no origin)
+- ✅ Validates allowed origins from `ALLOWED_ORIGINS` environment variable
+- ✅ Enabled credentials for authenticated requests
+- ✅ Proper error handling for unauthorized origins
 
-**Impact:** Enables health checks for deployment platforms and monitoring systems.
+**Impact:** Significantly improved security by restricting cross-origin requests to only trusted domains, preventing unauthorized access in production.
 
 ---
 
-### 7. **Basic Error Middleware**
+### 6. **Security Enhancements - Environment Variable Validation**
 **Location:** `backend/server.js`
 
 **Improvements Made:**
-- ✅ Added error handling middleware
-- ✅ Catches unhandled errors and returns standardized error responses
-- ✅ Logs error stack traces for debugging
+- ✅ Added startup validation for critical environment variables
+- ✅ Validates `MONGO_URI`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`
+- ✅ Server fails fast with clear error messages if variables are missing
+- ✅ Prevents runtime failures due to missing configuration
 
-**Impact:** Prevents server crashes from unhandled errors and provides better error responses to clients.
-
-**Note:** This is a basic implementation. See [Section 3.1](#31-inconsistent-error-responses) for recommended enhancements.
+**Impact:** Improved reliability and security by ensuring all required configuration is present before the server starts, preventing cryptic runtime errors.
 
 ---
 
-### 8. **Payment Processing Improvements**
+### 7. **Security Enhancements - Rate Limiting**
+**Location:** `backend/server.js`
+
+**Improvements Made:**
+- ✅ Implemented express-rate-limit middleware
+- ✅ Configured 100 requests per 15-minute window per IP
+- ✅ Applied to all `/api/` routes
+- ✅ Protects against DDoS and brute force attacks
+
+**Impact:** Enhanced security by preventing abuse and protecting the API from excessive requests, improving overall system stability.
+
+**Note:** Rate limiter is applied after route registration (line 52). While this still works in Express, consider moving it before routes for clarity. Also note that webhooks (`/api/webhook`) are intentionally excluded from rate limiting, which is correct for webhook endpoints.
+
+---
+
+### 8. **Webhook Payment Processing Improvements**
 **Location:** `backend/routes/webhookRoutes.js`
 
 **Improvements Made:**
-- ✅ Webhook-based payment verification (more reliable than client-side verification)
-- ✅ Duplicate processing protection - checks `paymentStatus !== "paid"` before updating
-- ✅ Proper webhook signature verification for security
-- ✅ Separate handling for `payment.captured` and `payment.failed` events
+- ✅ Added payment status check to prevent duplicate processing
+- ✅ Improved error handling with proper logging
+- ✅ Better webhook signature verification
+- ✅ Always acknowledges webhooks (even on errors) to prevent retries
+- ✅ Separate handling for payment.captured and payment.failed events
+- ✅ Graceful error handling for Google Sheets failures (doesn't block payment confirmation)
 
-**Impact:** More reliable payment processing with protection against duplicate updates and better security through webhook verification.
-
-**Note:** Payment verification route in `paymentRoutes.js` is commented out in favor of webhook-based approach, which is the recommended pattern for production. The `create-order` route has been moved to `webhookRoutes.js` and is actively used.
+**Impact:** More reliable payment processing with better error recovery and prevention of duplicate order updates.
 
 ---
 
@@ -173,42 +175,32 @@ router.post("/", [
 });
 ```
 
-#### 1.2 Missing CORS Configuration
+#### 1.2 ~~Missing CORS Configuration~~ ✅ **RESOLVED**
 **Location:** `backend/server.js`
 
-**Issue:**
-```javascript
-app.use(cors()); // Allows all origins in production
-```
+**Previous Issue:**
+- CORS allowed all origins in production
 
-**Impact:** High - Security risk in production
+**Current State:**
+- ✅ Properly configured with environment variable support
+- ✅ Validates allowed origins from `ALLOWED_ORIGINS`
+- ✅ Allows server-to-server requests (no origin)
+- ✅ Enabled credentials for authenticated requests
 
-**Recommendation:**
-```javascript
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS?.split(',') || 'http://localhost:3000',
-  credentials: true
-}));
-```
+**Status:** Implemented - See Recent Improvements section #5
 
-#### 1.3 Environment Variables Not Validated
+#### 1.3 ~~Environment Variables Not Validated~~ ✅ **RESOLVED**
 **Location:** `backend/server.js`, all config files
 
-**Issue:** Server starts even if critical env vars are missing
+**Previous Issue:** Server started even if critical env vars were missing
 
-**Impact:** Medium-High - Runtime failures, security issues
+**Current State:**
+- ✅ Validates required environment variables on startup
+- ✅ Checks for `MONGO_URI`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`
+- ✅ Fails fast with clear error messages
+- ✅ Prevents runtime failures
 
-**Recommendation:**
-```javascript
-// Add at server startup
-const requiredEnvVars = ['MONGO_URI', 'RAZORPAY_KEY_ID', 'RAZORPAY_KEY_SECRET'];
-requiredEnvVars.forEach(varName => {
-  if (!process.env[varName]) {
-    console.error(`Missing required environment variable: ${varName}`);
-    process.exit(1);
-  }
-});
-```
+**Status:** Implemented - See Recent Improvements section #6
 
 #### 1.4 Sensitive File in Repository
 **Location:** `backend/config/googleServiceAccount.json` (mentioned in .gitignore)
@@ -227,65 +219,37 @@ requiredEnvVars.forEach(varName => {
 ### 2. **Payment Security Issues**
 
 #### 2.1 Missing Payment Amount Verification
-**Location:** `backend/routes/webhookRoutes.js` - `/razorpay` webhook handler
+**Location:** `backend/routes/paymentRoutes.js` - `/verify` endpoint
 
 **Issue:**
 ```javascript
-// Current webhook handler doesn't verify payment amount matches order amount
-// Payment could be for different amount than order total
-if (event.event === "payment.captured") {
-  const payment = event.payload.payment.entity;
-  // ❌ No amount verification here
-  order.paymentStatus = "paid";
+// Current code doesn't verify the payment amount matches order amount
+const razorpayOrder = await razorpayInstance.orders.fetch(razorpay_order_id);
+if (razorpayOrder.amount !== order.pricing.total * 100) {
+  return res.status(400).json({ message: "Amount mismatch" });
 }
 ```
 
-**Impact:** Critical - Could allow payment manipulation if webhook is compromised or payment amount differs
+**Impact:** Critical - Could allow payment manipulation
 
 **Recommendation:**
-```javascript
-// Verify payment amount matches order amount
-const paymentAmount = payment.amount; // in paise
-const orderAmount = order.pricing.total * 100; // convert to paise
-if (paymentAmount !== orderAmount) {
-  console.error(`Amount mismatch: payment=${paymentAmount}, order=${orderAmount}`);
-  return res.status(400).json({ message: "Payment amount mismatch" });
-}
-```
+- Verify payment amount matches order amount before marking as paid
+- Add checksum/amount validation
 
 #### 2.2 Race Condition in Payment Verification
-**Location:** `backend/routes/webhookRoutes.js`
+**Location:** `backend/routes/paymentRoutes.js`
 
-**Status:** ✅ **PARTIALLY ADDRESSED** - Basic protection exists
-
-**Current Implementation:**
-```javascript
-if (order && order.paymentStatus !== "paid") {
-  order.paymentStatus = "paid";
-  // ... update order
-}
-```
-
-**Remaining Issue:** Race condition still possible between check and save operations
+**Issue:** Multiple verification requests could process the same payment
 
 **Impact:** Medium - Duplicate processing, order status conflicts
 
 **Recommendation:**
 ```javascript
-// Use database-level atomic update or transaction
-const result = await Order.findOneAndUpdate(
-  { razorpayOrderId, paymentStatus: { $ne: "paid" } },
-  { 
-    paymentStatus: "paid",
-    razorpayPaymentId: payment.id,
-    paidAt: new Date()
-  },
-  { new: true }
-);
-
-if (!result) {
-  console.log("Order already processed or not found");
-  return res.json({ status: "ok" }); // Already handled
+// Add transaction/locking
+order.paymentStatus = "paid";
+// Check if already paid before updating
+if (order.paymentStatus === "paid") {
+  return res.status(400).json({ message: "Order already paid" });
 }
 ```
 
@@ -296,65 +260,27 @@ if (!result) {
 #### 3.1 Inconsistent Error Responses
 **Location:** Multiple backend routes
 
-**Status:** ✅ **PARTIALLY ADDRESSED** - Basic error middleware exists
-
-**Current Implementation:**
-```javascript
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: "Internal Server Error" });
-});
-```
-
-**Remaining Issues:**
-- Error middleware doesn't respect error status codes
-- No distinction between production and development error messages
-- Missing structured error format (`success: false`)
-- Some routes still expose internal error details directly
+**Issue:**
+- Some errors expose internal details (`error.message`)
+- No structured error responses
+- Missing error logging
 
 **Recommendation:**
 ```javascript
-// Enhanced error middleware
+// Create error middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  const status = err.status || err.statusCode || 500;
-  res.status(status).json({
+  res.status(err.status || 500).json({
     success: false,
     message: process.env.NODE_ENV === 'production' 
       ? 'Internal server error' 
-      : err.message,
-    ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
+      : err.message
   });
 });
 ```
 
-#### 3.2 Missing Google Sheets Integration in Webhook Handler
-**Location:** `backend/routes/webhookRoutes.js`
-
-**Issue:** 
-```javascript
-// Webhook handler doesn't append to Google Sheets after payment success
-if (order && order.paymentStatus !== "paid") {
-  order.paymentStatus = "paid";
-  // ❌ Missing: await appendOrderToSheet(order);
-  await sendEmail(...);
-}
-```
-
-**Impact:** Medium - Orders marked as paid but not synced to admin Google Sheet
-
-**Recommendation:**
-```javascript
-try {
-  await appendOrderToSheet(order);
-} catch (err) {
-  console.error("Google Sheet failed:", err.message);
-  // Consider: Don't fail the webhook, but log for retry
-}
-```
-
-#### 3.3 Missing Transaction Rollback on Failures
-**Location:** `backend/routes/webhookRoutes.js`
+#### 3.2 Missing Transaction Rollback on Failures
+**Location:** `backend/routes/paymentRoutes.js`
 
 **Issue:** If Google Sheets append fails after payment verification, order is still marked as paid but not in sheet
 
@@ -364,7 +290,6 @@ try {
 - Use database transactions where possible
 - Implement retry logic for Google Sheets
 - Add queue system for async operations
-- Consider making Google Sheets append non-blocking (fire and forget with retry queue)
 
 ---
 
@@ -372,17 +297,25 @@ try {
 
 ### 4. **Code Quality & Architecture**
 
-#### 4.1 Cart Persistence
+#### 4.1 No Cart Persistence
 **Location:** `src/context/CartContext.tsx`
 
-**Status:** ✅ **COMPLETED** - Cart now persists using localStorage
+**Issue:** Cart data is lost on page refresh
 
-**Implementation:**
-- ✅ Cart loads from localStorage on mount
-- ✅ Cart syncs to localStorage on every update
-- ✅ Users retain cart across page refreshes
+**Impact:** Medium - Poor user experience
 
-**Impact:** Significantly improved user experience - no more lost carts on refresh.
+**Recommendation:**
+```typescript
+// Use localStorage
+const [cart, setCart] = useState<CartItem[]>(() => {
+  const saved = localStorage.getItem('cart');
+  return saved ? JSON.parse(saved) : [];
+});
+
+useEffect(() => {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}, [cart]);
+```
 
 #### 4.2 Missing TypeScript Types in Backend
 **Location:** All backend files
@@ -426,22 +359,18 @@ const errorResponse = (res, message, status = 400) => {
 - Remove aliases unless needed for specific reasons
 - Simplify configuration
 
-#### 4.5 Missing Request Rate Limiting
+#### 4.5 ~~Missing Request Rate Limiting~~ ✅ **RESOLVED**
 **Location:** `backend/server.js`
 
-**Issue:** No protection against DDoS or brute force attacks
+**Previous Issue:** No protection against DDoS or brute force attacks
 
-**Recommendation:**
-```javascript
-import rateLimit from 'express-rate-limit';
+**Current State:**
+- ✅ Implemented express-rate-limit middleware
+- ✅ Configured 100 requests per 15-minute window per IP
+- ✅ Applied to all `/api/` routes
+- ✅ Protects against abuse and excessive requests
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
-});
-
-app.use('/api/', limiter);
-```
+**Status:** Implemented - See Recent Improvements section #7
 
 ---
 
@@ -482,12 +411,16 @@ const order = await Order.create(req.body);
 
 ### 6. **Missing Features & Best Practices**
 
-#### 6.1 No Environment Variable Validation
+#### 6.1 ~~No Environment Variable Validation~~ ✅ **RESOLVED**
 **Location:** Startup files
 
-**Issue:** Missing env vars cause runtime errors instead of startup failures
+**Previous Issue:** Missing env vars caused runtime errors instead of startup failures
 
-**Recommendation:** Add env validation on startup
+**Current State:**
+- ✅ Environment variable validation implemented on startup
+- ✅ Server fails fast with clear error messages
+
+**Status:** Implemented - See Recent Improvements section #6
 
 #### 6.2 No Request Logging/Monitoring
 **Location:** `backend/server.js`
@@ -500,34 +433,19 @@ import morgan from 'morgan';
 app.use(morgan('combined')); // or 'dev' for development
 ```
 
-#### 6.3 Health Check Endpoint
+#### 6.3 Missing Health Check Endpoint
 **Location:** `backend/server.js`
 
-**Status:** ✅ **COMPLETED** - Basic health check endpoint added
+**Issue:** No way to check if server is healthy
 
-**Current Implementation:**
+**Recommendation:**
 ```javascript
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "ok" });
-});
-```
-
-**Recommendation for Enhancement:**
-```javascript
-app.get('/health', async (req, res) => {
-  try {
-    // Check database connection
-    const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
-    
-    res.json({ 
-      status: 'ok', 
-      timestamp: new Date().toISOString(),
-      uptime: process.uptime(),
-      database: dbStatus
-    });
-  } catch (error) {
-    res.status(503).json({ status: 'unhealthy', error: error.message });
-  }
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
 });
 ```
 
@@ -536,23 +454,14 @@ app.get('/health', async (req, res) => {
 
 **Issue:**
 ```javascript
-// Uses 'name' and 'orderId' that don't match order object structure
+// Uses 'name' and 'orderId' that might not exist
 const paymentFailureTemplate = ({ name, orderId }) => `...`
-// Order object has: order.customer.firstName, order._id, etc.
+// But order object structure is different
 ```
 
-**Impact:** Medium - Broken email templates, incorrect data displayed
+**Impact:** Medium - Broken email templates
 
-**Current State:** Template still uses incorrect field names. When called from webhook handler, it receives the full `order` object but tries to access `name` and `orderId` which don't exist.
-
-**Recommendation:** Update payment failure template to match order structure similar to payment success template:
-```javascript
-const paymentFailureTemplate = (order) => `
-  // Use order.customer.firstName + order.customer.lastName
-  // Use order._id for order ID
-  // Include order details similar to success template
-`;
-```
+**Recommendation:** Update payment failure template to match order structure similar to payment success template
 
 ---
 
@@ -679,41 +588,39 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 
 ### Priority 1 (Do First)
 1. Add input validation to backend routes (express-validator)
-2. Fix CORS configuration for production
-3. Add payment amount verification in webhook handler
-4. Add Google Sheets append to webhook success handler
-5. Add environment variable validation on startup
-6. Update payment failure email template to match order structure
-7. Enhance error middleware to respect status codes and hide details in production
+2. ~~Fix CORS configuration for production~~ ✅ **COMPLETED**
+3. Add payment amount verification in payment verification
+4. ~~Add environment variable validation on startup~~ ✅ **COMPLETED**
+5. Update payment failure email template to match order structure
 
 ### Priority 2 (Do Next)
-8. Add request rate limiting
+6. Implement cart persistence with localStorage
+7. Add structured error handling middleware
+8. ~~Add request rate limiting~~ ✅ **COMPLETED**
 9. Improve form validation on checkout page
 10. Add request logging (morgan)
-11. Enhance health check endpoint with database status
-12. Improve race condition protection in webhook handler (atomic updates)
 
 ### Priority 3 (Nice to Have)
-13. Remove remaining commented code from paymentRoutes.js
-14. Add loading states to UI for API calls
-15. Implement error boundaries
-16. Add basic tests for critical paths
-17. Implement retry logic for Google Sheets operations
+11. Add health check endpoint
+12. Remove remaining commented code
+13. Add loading states to UI for API calls
+14. Implement error boundaries
+15. Add basic tests for critical paths
 
 ---
 
 ## 🛠️ TECHNICAL DEBT SUMMARY
 
-| Category | Severity | Count | Status |
-|----------|----------|-------|--------|
-| Security Issues | High | 4 | 1 partially addressed |
-| Code Quality | Medium | 7 | 2 completed |
-| Missing Features | Medium | 5 | 2 completed |
-| Performance | Low | 3 | 0 completed |
-| Testing | Medium | 1 (but major) | 0 completed |
-| Documentation | Low | 3 | 0 completed |
+| Category | Severity | Count | Resolved |
+|----------|----------|-------|----------|
+| Security Issues | High | 5 | 3 ✅ |
+| Code Quality | Medium | 8 | - |
+| Missing Features | Medium | 6 | 1 ✅ |
+| Performance | Low | 3 | - |
+| Testing | Medium | 1 (but major) | - |
+| Documentation | Low | 3 | - |
 
-**Note:** Several improvements have been completed since the last report update, including cart persistence, health check endpoint, and basic error middleware.
+**Progress:** 4 critical/moderate issues resolved out of 20 total issues identified.
 
 ---
 
@@ -743,66 +650,37 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 
 ## 🎯 CONCLUSION
 
-Your Prakriti Pure project has a solid foundation with modern technologies and a clean architecture. Significant progress has been made since the last report update, with **8 improvements completed** including cart persistence, health check endpoint, and webhook-based payment processing.
+Your Prakriti Pure project has a solid foundation with modern technologies and a clean architecture. The main areas requiring attention are:
 
-The main areas still requiring attention are:
-
-1. **Security** - Add validation, proper CORS, payment amount verification in webhooks
-2. **Error Handling** - Enhance error middleware, add Google Sheets integration to webhooks
+1. **Security** - Add validation, proper CORS, payment verification
+2. **Data Persistence** - Cart persistence, better error handling
 3. **Code Quality** - Remove dead code, add tests, improve validation
-4. **User Experience** - Loading states, better error messages, fix payment failure email template
+4. **User Experience** - Loading states, better error messages
 
-**Recent Progress:**
-- ✅ Cart persistence implemented
-- ✅ Health check endpoint added
-- ✅ Basic error middleware added
-- ✅ Webhook-based payment processing with duplicate protection
-- 🔄 Error middleware needs enhancement
-- 🔄 Race condition protection needs atomic updates
+Addressing the Critical and Moderate issues will significantly improve the application's security, reliability, and maintainability. The minor issues can be addressed incrementally during regular development cycles.
 
-Addressing the remaining Critical and Moderate issues will significantly improve the application's security, reliability, and maintainability. The minor issues can be addressed incrementally during regular development cycles.
-
-**Estimated Remaining Effort:**
-- Critical Issues: 1-2 days (reduced from 2-3 days)
-- Moderate Issues: 2-4 days (reduced from 3-5 days)
+**Estimated Effort:**
+- Critical Issues: 2-3 days
+- Moderate Issues: 3-5 days  
 - Minor Issues: 2-3 days
 
-**Total Remaining: ~5-9 days of focused development** (reduced from 1-2 weeks)
+**Total: ~1-2 weeks of focused development**
+
+---
+
+---
+
+## 📌 NOTES
+
+### Known Issues to Address
+- **Payment Failure Email Template:** Still uses old structure (`{ name, orderId }`) instead of full order object. Should be updated to match payment success template structure.
+- **Route Import Confusion:** `backend/server.js` imports `paymentRoutes` from `webhookRoutes.js` (line 10), but a separate `paymentRoutes.js` file exists (mostly commented out). This creates confusion. Consider either:
+  - Removing the unused `paymentRoutes.js` file, OR
+  - Fixing the import to use the correct file if routes should be separated
+- **Payment Amount Verification:** Still missing verification that payment amount matches order amount before marking as paid (critical security issue).
+- **Commented Code:** `paymentRoutes.js` contains extensive commented-out code that should be removed or properly implemented.
 
 ---
 
 *Report last updated: January 23, 2025*  
 *Review and prioritize based on your specific needs and timeline.*
-
----
-
-## 📊 PROGRESS SUMMARY
-
-### ✅ Completed Improvements (8)
-1. Payment Success Email Template
-2. Payment Success Page Redesign  
-3. Code Quality Improvements (Google Sheets fix, cleanup)
-4. Email Template Structure Fix
-5. **Cart Persistence** (NEW)
-6. **Health Check Endpoint** (NEW)
-7. **Basic Error Middleware** (NEW)
-8. **Payment Processing Improvements** (Webhook-based, duplicate protection) (NEW)
-
-### 🔄 Partially Addressed (2)
-1. Error Handling Middleware (basic version exists, needs enhancement)
-2. Race Condition Protection (basic check exists, needs atomic updates)
-
-### ❌ Still Pending (Critical)
-1. Input Validation & Sanitization
-2. CORS Configuration
-3. Environment Variable Validation
-4. Payment Amount Verification in Webhooks
-5. Google Sheets Integration in Webhook Handler
-6. Payment Failure Email Template Fix
-
-### 📈 Overall Progress
-- **Completed:** 8 improvements
-- **In Progress:** 2 improvements  
-- **Remaining Critical:** 6 items
-- **Remaining Moderate:** ~15 items
-- **Remaining Minor:** ~10 items
