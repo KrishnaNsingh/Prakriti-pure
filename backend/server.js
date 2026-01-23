@@ -17,9 +17,33 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
 });
+const requiredEnvVars = ['MONGO_URI', 'RAZORPAY_KEY_ID', 'RAZORPAY_KEY_SECRET'];
+requiredEnvVars.forEach(varName => {
+  if (!process.env[varName]) {
+    console.error(`Missing required environment variable: ${varName}`);
+    process.exit(1);
+  }
+});
 
 app.use("/api/webhook", webhookRoutes);
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      const allowed = process.env.ALLOWED_ORIGINS?.split(",");
+
+      // Allow server-to-server, webhooks, Postman
+      if (!origin) return callback(null, true);
+
+      if (allowed.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/test", testRoutes);
