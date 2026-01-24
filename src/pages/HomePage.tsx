@@ -39,7 +39,7 @@ export function HomePage() {
             </div>
             <div className="relative h-[300px] md:h-[500px] rounded-2xl overflow-hidden">
               <ImageWithFallback
-                src="https://cdn.pixabay.com/photo/2023/08/30/00/24/ai-generated-8222355_1280.jpg"
+                src="/images/hero-banner.png"
                 alt="Hero Banner"
                 className="w-full h-full object-cover"
               />
