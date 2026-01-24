@@ -139,7 +139,7 @@ export const products: Product[] = [
   {
     id: "10",
     name: "Charcoal Soap",
-    price: 36.00,
+    price: 100.00,
     image: "/images/Charcoal Soap.jpeg",
     category: "Skincare",
     rating: 4.7,
