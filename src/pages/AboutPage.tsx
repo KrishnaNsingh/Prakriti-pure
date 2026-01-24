@@ -92,10 +92,16 @@ export function AboutPage() {
             <div className="space-y-6">
               <h1 className="text-4xl md:text-6xl">About PRAKRITI PURE</h1>
               <p className="text-lg text-muted-foreground">
-                Founded in 2020, Prakriti Pure is dedicated to bringing you the finest natural beauty products that enhance your inherent radiance. Our name reflects our commitment to nature (Prakriti) and authenticity (Pure).
+                Founded in 2025 with love and purpose, Prakriti Pure is a natural skincare brand rooted in the belief that true beauty begins with nature and honesty.
               </p>
               <p className="text-lg text-muted-foreground">
-                We believe that true beauty comes from within and should be nurtured with products that are as pure as nature intended. Every product in our collection is carefully curated to ensure it meets our high standards of quality, sustainability, and effectiveness.
+                Prakriti means nature, and Pure stands for clean, honest, and untouched—together reflecting our promise to create skincare that is gentle, safe, and truly effective.
+              </p>
+              <p className="text-lg text-muted-foreground">
+                We don’t believe in shortcuts or harsh chemicals that give quick results but damage skin over time. Instead, we focus on slow healing, natural nourishment, and long-term skin health.
+              </p>
+              <p className="text-lg text-muted-foreground">
+                Every product is carefully crafted using natural, traditional, and skin-loving ingredients, inspired by Ayurveda and time-tested wisdom—made with the same care we would choose for our own family.
               </p>
               <div className="grid grid-cols-3 gap-4 pt-6">
                 <div className="text-center">
@@ -103,7 +109,7 @@ export function AboutPage() {
                   <p className="text-sm text-muted-foreground">Happy Customers</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl md:text-4xl text-primary">200+</p>
+                  <p className="text-3xl md:text-4xl text-primary">25+</p>
                   <p className="text-sm text-muted-foreground">Products</p>
                 </div>
                 <div className="text-center">
@@ -227,8 +233,8 @@ export function AboutPage() {
                 </div>
                 <div>
                   <h4 className="mb-2">Email Us</h4>
-                  <p className="text-sm text-muted-foreground">krishna65255@gmail.com</p>
-                  <p className="text-sm text-muted-foreground">hello@prakritipure.com</p>
+                  <p className="text-sm text-muted-foreground">prakritipure3526@gmail.com</p>
+                  <p className="text-sm text-muted-foreground">orders@prakriti-pure.com</p>
                 </div>
               </div>
 
@@ -238,7 +244,7 @@ export function AboutPage() {
                 </div>
                 <div>
                   <h4 className="mb-2">Call Us</h4>
-                  <p className="text-sm text-muted-foreground">+91 898535724</p>
+                  <p className="text-sm text-muted-foreground">+91 87909 33354</p>
                   <p className="text-sm text-muted-foreground">Mon-Fri: 9AM - 6PM IST</p>
                 </div>
               </div>
@@ -250,8 +256,7 @@ export function AboutPage() {
                 <div>
                   <h4 className="mb-2">Visit Us</h4>
                   <p className="text-sm text-muted-foreground">
-                    Block-b, Subramanyam, Y-junction, Karnavanipalem<br />
-                    Gajuwaka, Vishakahapatnum,<br />
+                    27-4-71/2, Gajuwaka Bypass Rd, Sri Nagar, Gajuwaka, Visakhapatnam,<br />
                     AndhraPradesh, India - 530044
                   </p>
                 </div>
