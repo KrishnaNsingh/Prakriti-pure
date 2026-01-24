@@ -105,11 +105,11 @@ export function AboutPage() {
               </p>
               <div className="grid grid-cols-3 gap-4 pt-6">
                 <div className="text-center">
-                  <p className="text-3xl md:text-4xl text-primary">5000+</p>
+                  <p className="text-3xl md:text-4xl text-primary">1400+</p>
                   <p className="text-sm text-muted-foreground">Happy Customers</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl md:text-4xl text-primary">25+</p>
+                  <p className="text-3xl md:text-4xl text-primary">10+</p>
                   <p className="text-sm text-muted-foreground">Products</p>
                 </div>
                 <div className="text-center">
@@ -120,7 +120,7 @@ export function AboutPage() {
             </div>
             <div className="relative h-[300px] md:h-[500px] rounded-2xl overflow-hidden">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080"
+                src="/images/aboutus.png"
                 alt="About Us"
                 className="w-full h-full object-cover"
               />

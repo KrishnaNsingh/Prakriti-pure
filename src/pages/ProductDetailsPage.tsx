@@ -47,9 +47,13 @@ export function ProductDetailsPage() {
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 md:py-12">
         {/* Breadcrumb - Desktop Only */}
         <nav className="hidden md:flex items-center gap-2 text-sm text-muted-foreground mb-8">
-          <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+          <Link to="/" className="hover:text-primary transition-colors">
+            Home
+          </Link>
           <ChevronRight className="w-4 h-4" />
-          <Link to="/shop" className="hover:text-primary transition-colors">{product.category}</Link>
+          <Link to="/shop" className="hover:text-primary transition-colors">
+            {product.category}
+          </Link>
           <ChevronRight className="w-4 h-4" />
           <span className="text-foreground">{product.name}</span>
         </nav>
@@ -76,7 +80,14 @@ export function ProductDetailsPage() {
             </div>
 
             <div>
-              <p className="text-3xl md:text-4xl text-primary">₹{product.price.toFixed(2)}</p>
+              <p className="text-3xl md:text-4xl text-primary">
+                ₹{product.price.toFixed(2)}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-1">
+              <h3 className="font-medium">Net Weight:</h3>
+              <span className="text-muted-foreground">{product.netWeight}</span>
             </div>
 
             <div>
@@ -86,10 +97,12 @@ export function ProductDetailsPage() {
 
             <div>
               <h3 className="mb-2">Details</h3>
-              <p className="text-muted-foreground">{product.detailedDescription}</p>
+              <p className="text-muted-foreground">
+                {product.detailedDescription}
+              </p>
             </div>
 
-             <div>
+            <div>
               <h3 className="mb-2">How to Use:</h3>
               <p className="text-muted-foreground">{product.howtoUse}</p>
             </div>

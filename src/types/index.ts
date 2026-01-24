@@ -5,6 +5,7 @@ export interface Product {
   image: string;
   category: string;
   rating: number;
+  netWeight: string; 
   description: string;
   detailedDescription: string;
   howtoUse: string;
