@@ -241,13 +241,13 @@ const toggleSection = (section: string) => {
             © 2026 PRAKRITI PURE. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            {/* <a
-              href="#"
+            <a
+              href="https://www.facebook.com/Prakritipure3526/"
               className="text-muted-foreground hover:text-primary transition-colors"
               target="_blank"
             >
               <Facebook className="w-5 h-5" />
-            </a> */}
+            </a>
             <a
               href="https://www.instagram.com/prakritipure3526?igsh=YzAzZzM4eTdmd2t5"
               className="text-muted-foreground hover:text-primary transition-colors"
