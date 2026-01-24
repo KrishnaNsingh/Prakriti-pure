@@ -30,13 +30,14 @@ export const categories: Category[] = [
 export const products: Product[] = [
   {
     id: "1",
-    name: "D-Tan",
+    name: "D-Tan Clenser Soap",
     price: 150.00,
     image: "/images/D-Tan.jpeg",
     category: "Skincare",
     rating: 4.5,
-    description: "Brighten and hydrate your skin with this luxurious serum.",
-    detailedDescription: "Our Radiance Glow Serum is formulated with vitamin C and hyaluronic acid to deeply hydrate your skin while promoting a natural, healthy glow. Perfect for all skin types, this lightweight formula absorbs quickly and works to reduce the appearance of fine lines and dark spots."
+    description: "A gentle cleansing soap formulated to help reduce tan, remove dirt, and refresh tired skin without stripping its natural moisture.",
+    detailedDescription: "Helps cleanse tan and impurities while maintaining the skin’s natural moisture balance and softness.",
+    howtoUse: "Apply on wet skin, gently massage to form lather, and rinse thoroughly with water."
   },
   {
     id: "2",
@@ -45,8 +46,9 @@ export const products: Product[] = [
     image: "/images/Manjistha.jpeg",
     category: "Makeup",
     rating: 4.8,
-    description: "Long-lasting matte finish with rich color.",
-    detailedDescription: "Experience the perfect pout with our Velvet Matte Lipstick. This formula provides intense color payoff with a comfortable, non-drying matte finish. Enriched with nourishing oils, it keeps your lips soft and hydrated throughout the day. Available in 12 stunning shades."
+    description: "A nourishing bathing bar that blends traditional herbal care with the softness of goat milk for gentle daily cleansing.",
+    detailedDescription: "Helps improve skin clarity while keeping the skin soft, hydrated, and comfortable.",
+    howtoUse : "Use daily on wet skin, massage gently, and rinse well."
   },
   {
     id: "3",
@@ -55,8 +57,9 @@ export const products: Product[] = [
     image: "/images/Shea Butter Soap.jpeg",
     category: "Fragrance",
     rating: 4.7,
-    description: "Floral and fresh fragrance for everyday elegance.",
-    detailedDescription: "Blossom Eau de Parfum is a delicate blend of rose, jasmine, and sandalwood. This elegant fragrance opens with fresh citrus notes, transitions to a heart of white florals, and settles into a warm, woody base. Perfect for any occasion, this scent embodies timeless femininity."
+    description: "A moisturizing soap designed to cleanse the skin gently while providing lasting nourishment and softness.",
+    detailedDescription: "Helps prevent dryness by locking in moisture and leaving the skin smooth and supple.",
+    howtoUse : "Apply on damp skin, lather gently, and wash off with water."
   },
   {
     id: "4",
@@ -65,8 +68,9 @@ export const products: Product[] = [
     image: "/images/Night Gel.png",
     category: "Body Care",
     rating: 4.6,
-    description: "Deeply moisturize and soften your skin.",
-    detailedDescription: "Our Nourishing Body Cream is a rich, luxurious formula that provides intense hydration for dry skin. Infused with shea butter, coconut oil, and vitamin E, it absorbs quickly without leaving a greasy residue. Use daily for soft, supple, and radiant skin."
+    description: "A lightweight night gel cream that supports natural skin care and hydration while you sleep.",
+    detailedDescription: "Helps nourish and refresh the skin overnight for a healthy and rested look by morning.",
+    howtoUse : "Apply a small amount to clean face and neck before bedtime and gently massage until absorbed."
   },
   {
     id: "5",
@@ -75,8 +79,9 @@ export const products: Product[] = [
     image: "/images/Lip Balm.png",
     category: "Skincare",
     rating: 4.9,
-    description: "Revitalize your skin with this hydrating treatment.",
-    detailedDescription: "This Hydrating Face Mask is designed to give your skin an instant moisture boost. Formulated with aloe vera and green tea extract, it soothes irritation while providing deep hydration. Use 2-3 times a week for best results and wake up to plump, glowing skin."
+    description: "A gentle lip balm formulated to protect and nourish lips, keeping them soft and smooth.",
+    detailedDescription: "Helps heal dryness and provides long-lasting moisture for healthy-looking lips.",
+    howtoUse : "Apply evenly on lips whenever needed, especially before sleep."
   },
   {
     id: "6",
@@ -85,8 +90,9 @@ export const products: Product[] = [
     image: "/images/Glow-face-pack.jpeg",
     category: "Makeup",
     rating: 4.5,
-    description: "Four blendable shades for a natural flush.",
-    detailedDescription: "Create the perfect rosy glow with our Natural Blush Palette. This collection features four complementary shades that blend seamlessly for a natural, healthy flush. The silky, buildable formula is perfect for all skin tones and provides long-lasting color."
+    description: "A natural face pack created to refresh dull skin and enhance its natural glow.",
+    detailedDescription: "Helps cleanse pores and improve skin brightness, leaving the skin fresh and smooth.",
+    howtoUse : "Mix with water or rose water, apply evenly on face, leave for 10–15 minutes, then rinse off."
   },
   {
     id: "7",
@@ -95,8 +101,9 @@ export const products: Product[] = [
     image: "/images/Herbal D-Tan Clenser Powder.jpeg",
     category: "Body Care",
     rating: 4.4,
-    description: "Protect and soften your hands with botanical extracts.",
-    detailedDescription: "Our Botanical Hand Cream is enriched with chamomile, lavender, and jojoba oil to deeply nourish and protect your hands. The non-greasy formula absorbs instantly, leaving your skin soft and lightly scented. Perfect for on-the-go hydration."
+    description: "A traditional herbal cleanser powder that gently exfoliates and removes tan and impurities.",
+    detailedDescription: "Helps cleanse dead skin and dullness while promoting a clean and refreshed appearance.",
+    howtoUse : "Mix with water, apply gently on skin, massage lightly, and rinse off."
   },
   {
     id: "8",
@@ -105,8 +112,9 @@ export const products: Product[] = [
     image: "/images/Body Butter.jpeg",
     category: "Skincare",
     rating: 4.7,
-    description: "Refresh and balance your skin with rosewater.",
-    detailedDescription: "Our Rose Mist Toner is a refreshing spray that hydrates and balances your skin's pH. Made with pure rosewater and witch hazel, it minimizes pores, soothes inflammation, and prepares your skin for moisturizer. Use throughout the day for a quick refresh."
+    description: "A rich body butter designed to deeply nourish and moisturize dry and tired skin.",
+    detailedDescription: "Helps provide long-lasting hydration and improves skin softness and comfort.",
+    howtoUse : "Apply generously on clean, dry skin and massage until fully absorbed."
   },
   {
     id: "9",
@@ -116,6 +124,7 @@ export const products: Product[] = [
     category: "Skincare",
     rating: 4.7,
     description: "Refresh and balance your skin with rosewater.",
-    detailedDescription: "Our Rose Mist Toner is a refreshing spray that hydrates and balances your skin's pH. Made with pure rosewater and witch hazel, it minimizes pores, soothes inflammation, and prepares your skin for moisturizer. Use throughout the day for a quick refresh."
+    detailedDescription: "Our Rose Mist Toner is a refreshing spray that hydrates and balances your skin's pH. Made with pure rosewater and witch hazel, it minimizes pores, soothes inflammation, and prepares your skin for moisturizer. Use throughout the day for a quick refresh.",
+    howtoUse : "I do not Know 😂"
   },
 ];

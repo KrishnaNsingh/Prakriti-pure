@@ -7,6 +7,7 @@ export interface Product {
   rating: number;
   description: string;
   detailedDescription: string;
+  howtoUse: string;
 }
 
 export interface CartItem extends Product {

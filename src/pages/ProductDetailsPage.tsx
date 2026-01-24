@@ -89,6 +89,11 @@ export function ProductDetailsPage() {
               <p className="text-muted-foreground">{product.detailedDescription}</p>
             </div>
 
+             <div>
+              <h3 className="mb-2">How to Use:</h3>
+              <p className="text-muted-foreground">{product.howtoUse}</p>
+            </div>
+
             {/* Quantity Selector */}
             <div>
               <h4 className="mb-3">Quantity</h4>
