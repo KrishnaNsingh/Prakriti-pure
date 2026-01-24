@@ -218,7 +218,7 @@ prakriti-pure/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/KrishnaNsingh/Prakriti-pure.git>
    cd Prakriti_pure
    ```
 
@@ -245,7 +245,7 @@ prakriti-pure/
    **Backend:**
    ```bash
    cd backend
-   npm run dev  # or nodemon server.js
+   npx nodemon server.js
    ```
 
 ---
