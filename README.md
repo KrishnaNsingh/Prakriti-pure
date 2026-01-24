@@ -1,25 +1,23 @@
-# 🌿 Prakriti Pure – Full Stack Ecommerce Platform
+# 🌿 Prakriti Pure – Full Stack E-commerce Platform
 
-Prakriti Pure is a **full‑stack ecommerce application** built with a modern MERN-style architecture, focused on **clean UX, secure payments, admin-friendly order management, and scalability**.
-
-This project was built step‑by‑step with production practices in mind, even while using free tiers during development.
+Prakriti Pure is a **production-ready full-stack e-commerce application** built with modern MERN architecture, featuring secure payments, professional email notifications, and streamlined order management.
 
 ---
 
 ## 📋 Table of Contents
 
 - [Features](#-features)
-- [Recent Improvements](#-recent-improvements-january-2025)
 - [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
 - [Environment Variables](#-environment-variables)
 - [Payment Flow](#-payment-flow)
+- [Security Features](#-security-features)
 - [Email System](#-email-system)
 - [Google Sheets Integration](#-google-sheets-integration)
-- [Security Practices](#-security-practices)
 - [Deployment](#-deployment)
-- [Roadmap & Future Improvements](#-roadmap--future-improvements)
+- [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
 - [License](#-license)
 
@@ -27,93 +25,125 @@ This project was built step‑by‑step with production practices in mind, even 
 
 ## ✨ Features
 
-### 🛍️ Frontend (React + Vite)
+### 🛍️ Frontend (React + TypeScript + Vite)
 
-* Modern responsive UI (Desktop + Mobile)
-* Product listing & product details pages
-* Cart management using React Context
-* Checkout flow with form validation
-* Razorpay UPI & Card payment integration
-* Beautiful payment success & failure pages
-* Sticky mobile CTAs & clean UX patterns
-* Google‑style toast notifications
-* Professional email templates
+- **Modern Responsive UI** - Desktop and mobile optimized
+- **Product Catalog** - Product listing, details, and search
+- **Shopping Cart** - Context-based cart management
+- **Checkout Flow** - Form validation and secure payment integration
+- **Payment Integration** - Razorpay UPI & Card payments
+- **Success/Failure Pages** - Professional payment result pages
+- **Toast Notifications** - User-friendly feedback system
+- **TypeScript** - Type-safe development
 
 ### ⚙️ Backend (Node.js + Express)
 
-* REST API architecture
-* MongoDB database with Mongoose
-* Secure Razorpay payment creation & verification
-* Email notifications (order success / failure)
-* Google Sheets integration for admin order tracking
-* Environment‑based configuration
-* Webhook support for payment events
+- **RESTful API** - Clean API architecture
+- **MongoDB Database** - Mongoose ODM for data modeling
+- **Payment Processing** - Razorpay integration with webhook support
+- **Email Notifications** - Professional HTML email templates
+- **Google Sheets Sync** - Automated order tracking
+- **Input Validation** - Server-side validation with express-validator
+- **Rate Limiting** - DDoS and abuse protection
+- **CORS Security** - Environment-based origin validation
+- **Environment Validation** - Startup configuration checks
 
 ### 📊 Admin (Google Sheets)
 
-* Orders auto‑synced after successful payment
-* Manual **Completed / Incomplete** fulfillment toggle
-* No admin panel needed initially
-* Zero risk to database integrity
-
----
-
-## ✅ Recent Improvements (January 2025)
-
-### 1. **Payment Success Email Template**
-- ✅ Professional, responsive HTML email template
-- ✅ Branded design with green gradient header
-- ✅ Comprehensive order details (ID, date, items, pricing, address)
-- ✅ Table-based layout for maximum email client compatibility
-- ✅ Clean, modern design with proper typography
-
-### 2. **Payment Success Page Redesign**
-- ✅ Complete UI overhaul with modern, professional design
-- ✅ Animated success icon with pulsing ring effects
-- ✅ Green gradient header matching brand identity
-- ✅ Clean card-based layout with proper spacing
-- ✅ Informational boxes for shipping timeline and order status
-- ✅ Responsive design for mobile and desktop
-
-### 3. **Code Quality Improvements**
-- ✅ Fixed Google Sheets service account variable declaration issue
-- ✅ Removed commented code from checkout flow
-- ✅ Improved code readability and maintainability
-
-### 4. **Email Template Structure Fix**
-- ✅ Template now properly uses order object structure
-- ✅ Handles missing fields gracefully
-- ✅ Proper date formatting for Indian locale
+- **Auto-sync Orders** - Orders automatically appended after payment
+- **Manual Fulfillment** - Toggle order completion status
+- **Zero Database Risk** - Read-only sync, database remains source of truth
 
 ---
 
 ## 🧱 Tech Stack
 
 ### Frontend
-
-* **React 18+** (Vite)
-* **TypeScript** for type safety
-* **Tailwind CSS** for styling
-* **Axios** for API calls
-* **React Router** for navigation
-* **Lucide React** for icons
-* **Sonner** for toast notifications
+- **React 18+** with **Vite**
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **React Router** for navigation
+- **Axios** for API calls
+- **Sonner** for toast notifications
+- **Lucide React** for icons
+- **Radix UI** components
 
 ### Backend
+- **Node.js** runtime
+- **Express.js** web framework
+- **MongoDB** with **Mongoose** ODM
+- **Razorpay SDK** for payments
+- **Resend/Nodemailer** for emails
+- **Google Sheets API** for order tracking
+- **express-validator** for input validation
+- **express-rate-limit** for rate limiting
 
-* **Node.js** runtime
-* **Express.js** web framework
-* **MongoDB** with **Mongoose** ODM
-* **Razorpay SDK** for payments
-* **Resend** / **Nodemailer** for emails
-* **Google Sheets API** for order tracking
-* **dotenv** for environment management
+### Infrastructure
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** MongoDB Atlas
 
-### Hosting
+---
 
-* Frontend: **Vercel**
-* Backend: **Render** (free tier during development)
-* Database: **MongoDB Atlas**
+## 🏗️ Architecture
+
+```mermaid
+graph TB
+    subgraph "Client"
+        Browser[Browser]
+    end
+    
+    subgraph "Frontend - Vercel"
+        React[React + TypeScript App]
+        Pages[Pages: Home, Shop, Cart, Checkout]
+        Context[Cart Context]
+    end
+    
+    subgraph "Backend - Render"
+        Express[Express Server]
+        Routes[API Routes]
+        Validators[Input Validators]
+        Middleware[Rate Limiter, CORS, Validation]
+    end
+    
+    subgraph "External Services"
+        Razorpay[Razorpay Payment Gateway]
+        Email[Resend/Nodemailer Email Service]
+        Sheets[Google Sheets API]
+    end
+    
+    subgraph "Database"
+        MongoDB[(MongoDB Atlas)]
+    end
+    
+    Browser -->|HTTPS| React
+    React -->|API Calls| Express
+    Express -->|Validates| Validators
+    Express -->|Protects| Middleware
+    Express -->|Stores| MongoDB
+    Express -->|Creates Order| Razorpay
+    Razorpay -->|Webhook| Express
+    Express -->|Sends| Email
+    Express -->|Syncs| Sheets
+    
+    style React fill:#61dafb
+    style Express fill:#90ee90
+    style MongoDB fill:#4db33d
+    style Razorpay fill:#3395ff
+    style Email fill:#ff6b6b
+    style Sheets fill:#0f9d58
+```
+
+### Request Flow
+
+1. **User Action** → Frontend makes API request
+2. **Rate Limiting** → Middleware checks request rate
+3. **CORS Validation** → Origin is validated
+4. **Input Validation** → Request data is validated
+5. **Business Logic** → Route handler processes request
+6. **Database** → Data is stored/retrieved from MongoDB
+7. **External Services** → Payment/Email/Sheets as needed
+8. **Response** → JSON response sent to frontend
 
 ---
 
@@ -125,33 +155,48 @@ prakriti-pure/
 │   ├── pages/                   # Page components
 │   │   ├── HomePage.tsx
 │   │   ├── ShopPage.tsx
+│   │   ├── ProductDetailsPage.tsx
 │   │   ├── CartPage.tsx
 │   │   ├── CheckoutPage.tsx
 │   │   ├── PaymentSuccess.tsx
 │   │   └── PaymentFailed.tsx
 │   ├── components/              # Reusable components
-│   │   ├── ui/                 # UI primitives
-│   │   └── ...
-│   ├── context/                # React Context (Cart)
+│   │   ├── ui/                 # UI primitives (Radix UI)
+│   │   ├── Navigation.tsx
+│   │   ├── Footer.tsx
+│   │   └── ProductCard.tsx
+│   ├── context/                # React Context
+│   │   └── CartContext.tsx
 │   ├── types/                  # TypeScript types
+│   ├── data/                   # Static data
 │   └── App.tsx
 │
 ├── backend/                     # Backend source
 │   ├── config/                 # Configuration
-│   │   ├── db.js
-│   │   └── razorpay.js
+│   │   ├── db.js              # MongoDB connection
+│   │   └── razorpay.js        # Razorpay instance
 │   ├── models/                 # Mongoose models
 │   │   └── Order.js
 │   ├── routes/                 # API routes
 │   │   ├── orderRoutes.js
-│   │   ├── paymentRoutes.js
-│   │   └── webhookRoutes.js
+│   │   ├── webhookRoutes.js
+│   │   └── testRoutes.js
+│   ├── validators/             # Input validators
+│   │   ├── orderValidator.js
+│   │   └── paymentValidator.js
+│   ├── middlewares/            # Express middlewares
+│   │   ├── rateLimiter.js
+│   │   └── validate.js
 │   ├── utils/                  # Utility functions
 │   │   ├── sendEmail.js
 │   │   ├── googleSheets.js
 │   │   ├── paymentSuccess.js
 │   │   └── paymentFailure.js
-│   └── server.js
+│   ├── env.js                  # Environment loader
+│   └── server.js               # Express app entry
+│
+├── public/                     # Static assets
+│   └── images/                 # Product images
 │
 ├── IMPROVEMENT_REPORT.md        # Detailed improvement analysis
 └── README.md                    # This file
@@ -163,11 +208,11 @@ prakriti-pure/
 
 ### Prerequisites
 
-* Node.js 18+ and npm/yarn
-* MongoDB Atlas account (or local MongoDB)
-* Razorpay account (test mode)
-* Google Cloud account (for Sheets API)
-* Resend account (for emails) or SMTP credentials
+- **Node.js** 18+ and npm
+- **MongoDB Atlas** account (or local MongoDB)
+- **Razorpay** account (test/live mode)
+- **Google Cloud** account (for Sheets API)
+- **Resend** account (for emails) or SMTP credentials
 
 ### Installation
 
@@ -188,16 +233,16 @@ prakriti-pure/
    npm install
    ```
 
-4. **Set up environment variables** (see [Environment Variables](#-environment-variables) section)
+4. **Set up environment variables** (see [Environment Variables](#-environment-variables))
 
 5. **Start development servers**
 
-   Frontend:
+   **Frontend:**
    ```bash
    npm run dev
    ```
 
-   Backend:
+   **Backend:**
    ```bash
    cd backend
    npm run dev  # or nodemon server.js
@@ -234,7 +279,10 @@ RAZORPAY_KEY_ID=rzp_test_xxxxxxxxx
 RAZORPAY_KEY_SECRET=xxxxxxxxx
 RAZORPAY_WEBHOOK_SECRET=your_webhook_secret
 
-# Email (Resend)
+# CORS
+ALLOWED_ORIGINS=http://localhost:5173,https://yourdomain.com
+
+# Email (Resend - Recommended)
 RESEND_API_KEY=re_xxxxxxxxx
 
 # OR Email (SMTP)
@@ -248,93 +296,161 @@ GOOGLE_SERVICE_ACCOUNT={JSON_STRING_HERE}
 GOOGLE_SERVICE_ACCOUNT_BASE64=base64_encoded_json_string
 ```
 
+> ⚠️ **Security:** Never commit `.env` files. The server validates required variables on startup.
+
 ---
 
-## 💳 Payment Flow (Razorpay)
+## 💳 Payment Flow
 
-1. User fills checkout form with shipping details
-2. Order is created in MongoDB (status: `pending`)
-3. Backend creates Razorpay order with order amount
-4. Razorpay payment popup opens (UPI / Card)
-5. On successful payment:
-   * Signature is verified on backend
-   * Order status updated to `paid`
-   * Confirmation email sent to user
-   * Order appended to Google Sheet
-   * User redirected to success page
-6. On payment failure:
-   * Order status updated to `failed`
-   * Failure email sent to user
-   * User redirected to failure page
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant Razorpay
+    participant MongoDB
+    participant Email
+    participant Sheets
+
+    User->>Frontend: Fill checkout form
+    Frontend->>Backend: POST /api/orders/create
+    Backend->>Backend: Validate input
+    Backend->>MongoDB: Create order (pending)
+    MongoDB-->>Backend: Order created
+    Backend-->>Frontend: Order ID
+    
+    Frontend->>Backend: POST /api/payment/create-order
+    Backend->>Razorpay: Create Razorpay order
+    Razorpay-->>Backend: Razorpay order
+    Backend-->>Frontend: Razorpay order details
+    
+    Frontend->>Razorpay: Open payment popup
+    User->>Razorpay: Complete payment
+    Razorpay-->>Frontend: Payment response
+    
+    alt Payment Success
+        Frontend->>Backend: POST /api/webhook/razorpay
+        Backend->>Backend: Verify signature
+        Backend->>MongoDB: Update order (paid)
+        Backend->>Email: Send success email
+        Backend->>Sheets: Append order
+        Backend-->>Frontend: Success
+        Frontend->>User: Show success page
+    else Payment Failed
+        Frontend->>Backend: POST /api/payment/failure
+        Backend->>MongoDB: Update order (failed)
+        Backend->>Email: Send failure email
+        Backend-->>Frontend: Failure
+        Frontend->>User: Show failure page
+    end
+```
 
 ### Webhook Support
 
-The application also supports Razorpay webhooks for payment events:
+The application supports Razorpay webhooks for reliable payment event handling:
 - `payment.captured` - Payment success
 - `payment.failed` - Payment failure
+- Prevents duplicate processing
+- Graceful error handling
+
+---
+
+## 🛡️ Security Features
+
+### ✅ Implemented
+
+- **Input Validation** - Server-side validation using express-validator
+  - Email format validation
+  - Phone number validation (Indian format)
+  - Required field checks
+  - Data type validation
+  
+- **CORS Protection** - Environment-based origin validation
+  - Only allows configured origins
+  - Supports server-to-server requests
+  - Credentials enabled for authenticated requests
+
+- **Rate Limiting** - DDoS and abuse protection
+  - 100 requests per 15-minute window per IP
+  - Applied to all `/api/` routes
+  - Webhooks excluded (as required)
+
+- **Environment Validation** - Startup configuration checks
+  - Validates critical variables on server start
+  - Fails fast with clear error messages
+  - Prevents runtime failures
+
+- **Payment Security** - Secure payment processing
+  - Signature verification on backend
+  - Payment status checks to prevent duplicates
+  - Webhook signature validation
+
+- **Secrets Management** - Environment variables only
+  - No hardcoded secrets
+  - `.gitignore` configured
+  - Service account keys in env vars
+
+### 🔄 Planned
+
+- Payment amount verification before marking as paid
+- Transaction locking for race condition prevention
+- Enhanced error handling middleware
+- Request logging and monitoring
 
 ---
 
 ## 📧 Email System
 
-* Emails sent **only after payment verification**
-* Uses **Resend** API (recommended) or **Nodemailer** with SMTP
-* Professional HTML email templates with:
-  * Branded header design
-  * Complete order details
-  * Itemized product list
-  * Pricing breakdown
-  * Shipping address
-  * Shipping timeline information
+### Features
 
-**Supported Email Types:**
-* ✅ Payment success email (detailed order confirmation)
-* Payment failure email
+- **Professional HTML Templates** - Branded, responsive design
+- **Payment Success Email** - Complete order confirmation with:
+  - Order ID, date, and payment ID
+  - Itemized product list
+  - Pricing breakdown
+  - Shipping address
+  - Shipping timeline (3-5 business days)
 
-> **Note:** Production emails require a **custom domain** (e.g., `orders@prakriti-pure.com`) when using Resend.
+- **Payment Failure Email** - Helpful failure notification with:
+  - Order details
+  - Failure explanation
+  - Next steps for retry
+  - Support information
+
+### Email Providers
+
+- **Resend** (Recommended) - Modern email API
+- **Nodemailer** - SMTP support for custom servers
+
+> **Note:** Production emails require a **custom domain** when using Resend.
 
 ---
 
 ## 📊 Google Sheets Integration
 
-* Orders automatically appended to Google Sheet after successful payment
-* Each row includes:
-  * Order ID (MongoDB ObjectId)
-  * Customer details (name, email, phone)
-  * Product breakdown (names, quantities)
-  * Total quantity and amount
-  * Payment status
-  * Payment ID (Razorpay)
-  * Order date (IST timezone)
-  * Fulfillment status (manual dropdown)
-  * Full shipping address
+### Features
 
-> ⚠️ **Important:** Google Sheets is **read-only for admin tracking** — it does NOT sync back to the database. The database is the single source of truth.
+- **Auto-sync** - Orders automatically appended after successful payment
+- **Comprehensive Data** - Each row includes:
+  - Order ID (MongoDB ObjectId)
+  - Customer details (name, email, phone)
+  - Product breakdown (names, quantities)
+  - Total quantity and amount
+  - Payment status and payment ID
+  - Order date (IST timezone)
+  - Full shipping address
+  - Fulfillment status (manual dropdown)
 
-### Setup Google Sheets
+### Setup
 
 1. Create a Google Cloud Project
 2. Enable Google Sheets API
 3. Create a Service Account
 4. Download service account JSON key
 5. Share your Google Sheet with the service account email
-6. Add the JSON as `GOOGLE_SERVICE_ACCOUNT` environment variable (or base64 encoded)
+6. Add JSON as `GOOGLE_SERVICE_ACCOUNT` environment variable
 
----
-
-## 🛡️ Security Practices
-
-### Current Implementation
-
-* ✅ Payment verification done on backend only
-* ✅ Secrets stored in environment variables
-* ✅ No sensitive files committed (`.gitignore` configured)
-* ✅ Database is single source of truth
-* ✅ Admin tools never mutate database
-
-### Planned Security Improvements
-
-See [Roadmap - Critical Security Issues](#-critical-security-issues-high-priority) section below.
+> ⚠️ **Important:** Google Sheets is **read-only for admin tracking** — it does NOT sync back to the database. The database is the single source of truth.
 
 ---
 
@@ -344,7 +460,7 @@ See [Roadmap - Critical Security Issues](#-critical-security-issues-high-priorit
 
 1. Push repository to GitHub
 2. Import project into Vercel
-3. Add frontend environment variables:
+3. Add environment variables:
    - `VITE_API_BASE_URL`
    - `VITE_RAZORPAY_KEY_ID`
 4. Deploy
@@ -369,181 +485,55 @@ See [Roadmap - Critical Security Issues](#-critical-security-issues-high-priorit
 
 ---
 
-## 🗺️ Roadmap & Future Improvements
+## 🗺️ Roadmap
 
-This roadmap is based on the comprehensive [IMPROVEMENT_REPORT.md](./IMPROVEMENT_REPORT.md) analysis.
+### ✅ Completed (January 2025)
 
-### 🔴 Critical Security Issues (High Priority)
+- ✅ Input validation with express-validator
+- ✅ CORS configuration with environment variables
+- ✅ Environment variable validation on startup
+- ✅ Rate limiting implementation
+- ✅ Professional payment success email template
+- ✅ Professional payment failure email template
+- ✅ Payment success page redesign
+- ✅ Webhook payment processing improvements
+- ✅ Code quality improvements
 
-#### 1. Input Validation & Sanitization
-- [ ] Add server-side validation (express-validator or Joi)
-- [ ] Validate email format, phone numbers, ZIP codes
-- [ ] Protect against XSS/NoSQL injection attacks
-- [ ] Add request sanitization middleware
+### 🔴 High Priority
 
-#### 2. CORS Configuration
-- [ ] Configure CORS to allow only specific origins in production
-- [ ] Use environment variable for allowed origins
-- [ ] Enable credentials only when necessary
+- [ ] Payment amount verification before marking as paid
+- [ ] Race condition handling in payment verification
+- [ ] Structured error handling middleware
+- [ ] Request logging (Morgan/Winston)
 
-#### 3. Environment Variable Validation
-- [ ] Validate required env vars on server startup
-- [ ] Fail fast if critical variables are missing
-- [ ] Provide clear error messages for missing variables
+### 🟡 Medium Priority
 
-#### 4. Payment Security Enhancements
-- [ ] Add payment amount verification before marking order as paid
-- [ ] Handle race conditions in payment verification
-- [ ] Prevent duplicate payment processing
-- [ ] Add transaction locking mechanism
+- [ ] Cart persistence with localStorage
+- [ ] Frontend form validation enhancement (react-hook-form)
+- [ ] API response standardization
+- [ ] Health check endpoint
+- [ ] Backend TypeScript migration (or JSDoc annotations)
 
----
+### 🟢 Nice-to-Have
 
-### 🟡 Moderate Priority Improvements
-
-#### Code Quality & Architecture
-
-- [ ] **Cart Persistence**
-  - Add localStorage to persist cart across page refreshes
-  - Improve user experience during navigation
-
-- [ ] **Backend TypeScript Migration**
-  - Gradually migrate backend to TypeScript
-  - Or add JSDoc type annotations for better IDE support
-
-- [ ] **API Response Standardization**
-  - Standardize all API responses to `{ success: boolean, data?: any, message?: string }`
-  - Create helper functions for consistent responses
-
-- [ ] **Request Rate Limiting**
-  - Add express-rate-limit middleware
-  - Protect against DDoS and brute force attacks
-
-#### Data Validation
-
-- [ ] **Frontend Form Validation**
-  - Integrate react-hook-form (already installed)
-  - Add email format, phone number, ZIP code validation
-  - Show field-specific error messages
-
-- [ ] **Backend Order Validation**
-  - Enhance Mongoose schema validation
-  - Add pre-save hooks for data sanitization
-  - Validate pricing calculations match frontend
-
-#### Error Handling & Monitoring
-
-- [ ] **Structured Error Handling**
-  - Create error middleware
-  - Standardize error responses
-  - Hide internal error details in production
-
-- [ ] **Request Logging**
-  - Add Morgan for HTTP request logging
-  - Implement structured logging (Winston/Pino)
-  - Add request ID tracking
-
-- [ ] **Health Check Endpoint**
-  - Add `/health` endpoint for monitoring
-  - Include database connectivity check
-  - Return server uptime and status
-
----
-
-### 🟢 Nice-to-Have Improvements
-
-#### Code Organization
-
-- [ ] Remove remaining commented code from files
-- [ ] Add JSDoc comments for better IDE support
-- [ ] Extract duplicate shipping logic to utility function
-- [ ] Create constants file for magic numbers/strings
-
-#### Frontend Enhancements
-
-- [ ] **Loading States**
-  - Add loading spinners for API calls
-  - Implement skeleton loaders for better UX
-
-- [ ] **Error Boundaries**
-  - Add React Error Boundaries to prevent app crashes
-  - Graceful error handling and user-friendly error pages
-
-- [ ] **Accessibility**
-  - Add ARIA labels to interactive elements
-  - Improve keyboard navigation
-  - Ensure screen reader compatibility
-
-- [ ] **SEO**
-  - Add meta tags (Open Graph, Twitter Cards)
-  - Implement dynamic meta tags per page
-  - Add structured data (JSON-LD)
-
-#### Testing
-
-- [ ] Add Jest for backend unit tests
-- [ ] Add React Testing Library for frontend
-- [ ] Set up Postman/Newman for API tests
-- [ ] Consider Playwright for end-to-end tests
-
-#### Performance
-
-- [ ] **Image Optimization**
-  - Convert images to WebP format
-  - Implement lazy loading for product images
-  - Add image CDN integration
-
-- [ ] **API Response Caching**
-  - Add Redis caching for product data
-  - Implement cache invalidation strategy
-
-- [ ] **Code Splitting**
-  - Use React.lazy for route-based code splitting
-  - Reduce initial bundle size
-
----
+- [ ] Loading states for API calls
+- [ ] Error boundaries in React
+- [ ] SEO meta tags
+- [ ] Image optimization (WebP, lazy loading)
+- [ ] Code splitting
+- [ ] Unit and integration tests
+- [ ] CI/CD pipeline
 
 ### 🎯 Feature Additions
 
-#### User Experience
+- [ ] User authentication
+- [ ] Order tracking page
+- [ ] Product reviews and ratings
+- [ ] Admin dashboard
+- [ ] Product search and filtering
+- [ ] Email subscription
 
-- [ ] User authentication (AuthPage exists but not implemented)
-- [ ] Order tracking page with status updates
-- [ ] Product reviews and ratings (UI exists but not functional)
-- [ ] Wishlist functionality
-- [ ] Order history for authenticated users
-
-#### Admin Features
-
-- [ ] Admin dashboard (React-based)
-- [ ] Order fulfillment syncing from Google Sheets to database
-- [ ] Product management interface
-- [ ] Analytics and reporting
-
-#### Additional Integrations
-
-- [ ] Email subscription system
-- [ ] Product search and advanced filtering
-- [ ] Inventory management
-- [ ] Shipping provider integration (tracking numbers)
-
----
-
-### 📊 Infrastructure & DevOps
-
-- [ ] Set up CI/CD pipeline (GitHub Actions)
-- [ ] Add staging environment
-- [ ] Implement automated database backups
-- [ ] Set up monitoring (Sentry, LogRocket, or similar)
-- [ ] Add performance monitoring (New Relic, DataDog)
-
-### 📝 Code Standards
-
-- [ ] Add ESLint configuration
-- [ ] Add Prettier for code formatting
-- [ ] Set up pre-commit hooks (Husky)
-- [ ] Establish code review process
-- [ ] Document API endpoints (Swagger/OpenAPI)
+> 📊 See [IMPROVEMENT_REPORT.md](./IMPROVEMENT_REPORT.md) for detailed analysis.
 
 ---
 
@@ -552,50 +542,43 @@ This roadmap is based on the comprehensive [IMPROVEMENT_REPORT.md](./IMPROVEMENT
 We welcome contributions! Here's how you can help:
 
 1. **Fork the repository**
-2. **Create a new branch** for your feature/fix
+2. **Create a feature branch**
    ```bash
    git checkout -b feature/your-feature-name
    ```
 3. **Make your changes** and test thoroughly
-4. **Commit your changes** with clear messages
+4. **Commit with clear messages**
    ```bash
    git commit -m "Add: description of your changes"
    ```
-5. **Push to your fork**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-6. **Submit a pull request**
+5. **Push and submit a pull request**
 
-### Contribution Guidelines
+### Guidelines
 
-* ✅ Ensure no secrets are committed (check `.env` files)
-* ✅ Update `.env.example` if adding new environment variables
-* ✅ Follow existing code style and patterns
-* ✅ Add comments for complex logic
-* ✅ Test your changes before submitting PR
+- ✅ Ensure no secrets are committed (check `.env` files)
+- ✅ Follow existing code style and patterns
+- ✅ Add comments for complex logic
+- ✅ Test your changes before submitting PR
 
 ---
 
 ## 📚 Documentation
 
-* [IMPROVEMENT_REPORT.md](./IMPROVEMENT_REPORT.md) - Detailed analysis of codebase improvements and technical debt
-* [Razorpay Documentation](https://razorpay.com/docs/)
-* [MongoDB Atlas Documentation](https://docs.atlas.mongodb.com/)
-* [Google Sheets API Documentation](https://developers.google.com/sheets/api)
+- [IMPROVEMENT_REPORT.md](./IMPROVEMENT_REPORT.md) - Detailed codebase analysis and improvements
+- [Razorpay Documentation](https://razorpay.com/docs/)
+- [MongoDB Atlas Documentation](https://docs.atlas.mongodb.com/)
+- [Google Sheets API Documentation](https://developers.google.com/sheets/api)
 
 ---
 
 ## 🧡 Acknowledgements
 
-Built with patience, debugging, caffeine, and a lot of learning.
-
-This project reflects **real‑world full‑stack engineering practices**, not just tutorials.
+Built with modern full-stack engineering practices and production-ready architecture.
 
 **Special Thanks:**
-* Razorpay for payment infrastructure
-* Google Sheets API for simple admin tracking
-* The open-source community for amazing tools
+- Razorpay for payment infrastructure
+- Google Sheets API for simple admin tracking
+- The open-source community for amazing tools
 
 ---
 
@@ -609,7 +592,7 @@ MIT License
 
 For issues, questions, or suggestions:
 - Open an issue on GitHub
-- Check the [IMPROVEMENT_REPORT.md](./IMPROVEMENT_REPORT.md) for known issues and improvements
+- Check the [IMPROVEMENT_REPORT.md](./IMPROVEMENT_REPORT.md) for known issues
 
 ---
 
