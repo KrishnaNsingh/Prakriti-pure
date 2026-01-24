@@ -46,9 +46,6 @@ export function CheckoutPage() {
     }
   }, [cart.length, mongoOrderId, navigate]);
 
-  useEffect(() => {
-  localStorage.setItem('cart', JSON.stringify(cart));
-}, [cart]);
 
   const orderData = {
     customer: {
