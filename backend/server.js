@@ -12,7 +12,6 @@ import paymentRoutes from "./routes/webhookRoutes.js";
 connectDB();
 
 const app = express();
-app.set("trust proxy", 1);
 const requiredEnvVars = ['MONGO_URI', 'RAZORPAY_KEY_ID', 'RAZORPAY_KEY_SECRET'];
 requiredEnvVars.forEach(varName => {
   if (!process.env[varName]) {
@@ -20,7 +19,7 @@ requiredEnvVars.forEach(varName => {
     process.exit(1);
   }
 });
-
+app.set("trust proxy", 1);
 app.use("/api/webhook", webhookRoutes);
 app.use(
   cors({
