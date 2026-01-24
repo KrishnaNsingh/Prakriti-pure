@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect ,ReactNode } from "react";
+
 import { CartItem, Product } from "../types";
 
 interface CartContextType {
@@ -17,6 +18,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (product: Product, quantity: number = 1) => {
     setCart((prevCart) => {
