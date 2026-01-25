@@ -40,12 +40,16 @@ export function CheckoutPage() {
   //   navigate("/cart");
   //   return null;
   // }
+  const FREE_DELIVERY_THRESHOLD = 999;
+
+  const amountToFreeShipping =
+    subtotal < FREE_DELIVERY_THRESHOLD ? FREE_DELIVERY_THRESHOLD - subtotal : 0;
+
   useEffect(() => {
     if (cart.length === 0 && !mongoOrderId) {
       navigate("/cart");
     }
   }, [cart.length, mongoOrderId, navigate]);
-
 
   const orderData = {
     customer: {
@@ -84,14 +88,68 @@ export function CheckoutPage() {
 
   const [isPaying, setIsPaying] = useState(false);
   //start payment
+  // const startPayment = async () => {
+  //   // prevent double click
+  //   if (isPaying) return;
+  //   //check if all form are filled
+  //   if (!firstName || !email || !phone || !address) {
+  //     toast.error("Please fill all required fields");
+  //     return;
+  //   }
+  //   try {
+  //     setIsPaying(true);
+
+  //     const orderId = mongoOrderId ?? (await createOrder());
+
+  //     const { data } = await axios.post(`${API}/api/payment/create-order`, {
+  //       orderId,
+  //     });
+
+  //     openRazorpay(data);
+  //   } catch (error) {
+  //     toast.error("Unable to start payment");
+  //     setIsPaying(false);
+  //   }
+  // };
   const startPayment = async () => {
-    // prevent double click
     if (isPaying) return;
-    //check if all form are filled
-    if (!firstName || !email || !phone || !address) {
-      toast.error("Please fill all required fields");
+
+    // -------- Frontend validation --------
+
+    if (!firstName.trim()) {
+      toast.error("First name is required");
       return;
     }
+
+    if (!email.trim()) {
+      toast.error("Email is required");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    if (!phone.trim()) {
+      toast.error("Phone number is required");
+      return;
+    }
+
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("Please enter a valid 10-digit Indian mobile number");
+      return;
+    }
+
+    if (!address.trim()) {
+      toast.error("Shipping address is required");
+      return;
+    }
+
+    // -------- Start payment --------
+
     try {
       setIsPaying(true);
 
@@ -103,7 +161,7 @@ export function CheckoutPage() {
 
       openRazorpay(data);
     } catch (error) {
-      toast.error("Unable to start payment");
+      toast.error("Unable to start payment. Please try again.");
       setIsPaying(false);
     }
   };
@@ -142,10 +200,19 @@ export function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="flex items-center justify-center gap-2 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md text-sm">
-        <span>🚚</span>
-        <span className="font-medium">Free Delivery on Orders Above ₹999</span>
-      </div>
+      {subtotal < FREE_DELIVERY_THRESHOLD && (
+        <div className="flex items-center justify-center bg-yellow-50 border border-yellow-200 text-yellow-800 px-3 py-2 rounded-md text-sm mb-3">
+          💡 Add items worth <strong>₹{amountToFreeShipping}</strong> more to
+          get <strong>FREE DELIVERY</strong>
+        </div>
+      )}
+
+      {subtotal >= FREE_DELIVERY_THRESHOLD && (
+        <div className="flex items-center justify-center bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded-md text-sm mb-3">
+          🚚 You’ve unlocked <strong>FREE DELIVERY</strong>
+        </div>
+      )}
+
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 md:py-12">
         <h1 className="mb-8">Checkout</h1>
 

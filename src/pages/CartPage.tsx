@@ -9,8 +9,12 @@ export function CartPage() {
   const { cart, updateQuantity, removeFromCart, getCartTotal } = useCart();
 
   const subtotal = getCartTotal();
-  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 100.00) : 0;
+  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 100.0) : 0;
   const total = subtotal + shipping;
+  const FREE_DELIVERY_THRESHOLD = 999;
+
+  const amountToFreeShipping =
+    subtotal < FREE_DELIVERY_THRESHOLD ? FREE_DELIVERY_THRESHOLD - subtotal : 0;
 
   if (cart.length === 0) {
     return (
@@ -39,10 +43,19 @@ export function CartPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="flex items-center justify-center gap-2 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md text-sm">
-        <span>🚚</span>
-        <span className="font-medium">Free Delivery on Orders Above ₹999</span>
-      </div>
+      {subtotal < FREE_DELIVERY_THRESHOLD && (
+        <div className="flex items-center justify-center bg-yellow-50 border border-yellow-200 text-yellow-800 px-3 py-2 rounded-md text-sm mb-3">
+          💡 Add items worth <strong>₹{amountToFreeShipping}</strong> more to
+          get <strong>FREE DELIVERY</strong>
+        </div>
+      )}
+
+      {subtotal >= FREE_DELIVERY_THRESHOLD && (
+        <div className="flex items-center justify-center bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded-md text-sm mb-3">
+          🚚 You’ve unlocked <strong>FREE DELIVERY</strong>
+        </div>
+      )}
+
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 md:py-12">
         <h1 className="mb-8">Shopping Cart</h1>
 
@@ -67,7 +80,9 @@ export function CartPage() {
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
                     <h3 className="mb-1">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-2">{item.category}</p>
+                    <p className="text-sm text-muted-foreground mb-2">
+                      {item.category}
+                    </p>
                     <p className="text-primary">₹{item.price.toFixed(2)}</p>
                   </div>
 
@@ -78,7 +93,9 @@ export function CartPage() {
                         variant="outline"
                         size="icon"
                         className="h-8 w-8 rounded-full"
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity - 1)
+                        }
                       >
                         <Minus className="w-3 h-3" />
                       </Button>
@@ -87,7 +104,9 @@ export function CartPage() {
                         variant="outline"
                         size="icon"
                         className="h-8 w-8 rounded-full"
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity + 1)
+                        }
                       >
                         <Plus className="w-3 h-3" />
                       </Button>
@@ -119,7 +138,9 @@ export function CartPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Shipping</span>
-                  <span>{shipping === 0 ? "Free" : `₹${shipping.toFixed(2)}`}</span>
+                  <span>
+                    {shipping === 0 ? "Free" : `₹${shipping.toFixed(2)}`}
+                  </span>
                 </div>
                 {subtotal > 0 && subtotal <= 50 && (
                   <p className="text-sm text-muted-foreground">
@@ -129,7 +150,9 @@ export function CartPage() {
                 <div className="border-t border-border pt-4">
                   <div className="flex justify-between">
                     <span>Total</span>
-                    <span className="text-xl text-primary">₹{total.toFixed(2)}</span>
+                    <span className="text-xl text-primary">
+                      ₹{total.toFixed(2)}
+                    </span>
                   </div>
                 </div>
               </div>
