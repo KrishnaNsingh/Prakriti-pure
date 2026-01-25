@@ -17,7 +17,8 @@ export function HomePage() {
             <div className="space-y-6 text-center md:text-left">
               <h1 className="text-4xl md:text-6xl">Glow Starts Here</h1>
               <p className="text-lg md:text-xl text-muted-foreground">
-                Discover premium beauty products that enhance your natural radiance. Curated with love, delivered with care.
+                Discover premium beauty products that enhance your natural
+                radiance. Curated with love, delivered with care.
               </p>
               <div className="flex gap-4 justify-center md:justify-start">
                 <Button
@@ -48,6 +49,11 @@ export function HomePage() {
         </div>
       </section>
 
+      <div className="flex items-center justify-center gap-2 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md text-sm">
+        <span>🚚</span>
+        <span className="font-medium">Free Delivery on Orders Above ₹999</span>
+      </div>
+
       {/* Featured Products */}
       <section className="max-w-[1440px] mx-auto px-4 md:px-8 py-8 md:py-16">
         <div className="flex justify-between items-center mb-8 md:mb-12">
@@ -60,7 +66,7 @@ export function HomePage() {
             View All
           </Button>
         </div>
-        
+
         {/* Desktop: 4 per row, Mobile: 1 per row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {featuredProducts.map((product) => (

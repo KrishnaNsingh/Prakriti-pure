@@ -9,7 +9,7 @@ export function CartPage() {
   const { cart, updateQuantity, removeFromCart, getCartTotal } = useCart();
 
   const subtotal = getCartTotal();
-  const shipping = subtotal > 0 ? (subtotal > 500 ? 0 : 100.00) : 0;
+  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 100.00) : 0;
   const total = subtotal + shipping;
 
   if (cart.length === 0) {
@@ -39,6 +39,10 @@ export function CartPage() {
 
   return (
     <div className="min-h-screen">
+      <div className="flex items-center justify-center gap-2 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md text-sm">
+        <span>🚚</span>
+        <span className="font-medium">Free Delivery on Orders Above ₹999</span>
+      </div>
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-6 md:py-12">
         <h1 className="mb-8">Shopping Cart</h1>
 
