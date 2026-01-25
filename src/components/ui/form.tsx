@@ -112,10 +112,14 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
     <Slot
       data-slot="form-control"
       id={formItemId}
+      // aria-describedby={
+      //   !error
+      //     ? `${formDescriptionId}`
+      //     : `${formDescriptionId} ${formMessageId}`
+      // }
       aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
+        [formDescriptionId, formMessageId].filter(Boolean).join(" ") ||
+        undefined
       }
       aria-invalid={!!error}
       {...props}
