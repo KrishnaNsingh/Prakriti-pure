@@ -17,8 +17,8 @@ export function HomePage() {
             <div className="space-y-6 text-center md:text-left">
               <h1 className="text-4xl md:text-6xl">Glow Starts Here</h1>
               <p className="text-lg md:text-xl text-muted-foreground">
-                Discover premium beauty products that enhance your natural
-                radiance. Curated with love, delivered with care.
+                At Prakriti Pure, we craft natural skincare with care and intention — 
+                helping your skin feel healthy, balanced, and beautifully radiant.
               </p>
               <div className="flex gap-4 justify-center md:justify-start">
                 <Button
