@@ -68,28 +68,6 @@ export function HomePage() {
           ))}
         </div>
       </section>
-
-      {/* Newsletter Section */}
-      {/* <section className="bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/50">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-12 md:py-16">
-          <div className="max-w-2xl mx-auto text-center space-y-6">
-            <h2>Join Our Beauty Community</h2>
-            <p className="text-muted-foreground">
-              Subscribe to get special offers, beauty tips, and new product updates.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-full bg-white border border-border focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 }
