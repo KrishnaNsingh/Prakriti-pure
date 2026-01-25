@@ -13,6 +13,8 @@ import { Toaster } from "./components/ui/sonner";
 import { PaymentSuccess } from "./pages/PaymentSuccess";
 import { PaymentFailed } from "./pages/PaymentFailed";
 import  ScrollToTop  from "./components/ScrollToTop";
+import TermsAndConditions from "./pages/TermsAndConditions";
+
 
 export default function App() {
   return (
@@ -32,6 +34,7 @@ export default function App() {
               <Route path="/about" element={<AboutPage />} />
               <Route path="/payment-success" element={<PaymentSuccess />} />
               <Route path="/payment-failed" element={<PaymentFailed />} />
+              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             </Routes>
           </main>
           <Footer />

@@ -256,124 +256,12 @@ export function AboutPage() {
                 <div>
                   <h4 className="mb-2">Visit Us</h4>
                   <p className="text-sm text-muted-foreground">
-                    27-4-71/2, Gajuwaka Bypass Rd, Sri Nagar, Gajuwaka, Visakhapatnam,<br />
-                    AndhraPradesh, India - 530044
+                     1F 15 Block B, Subramanya Estates, Srikrishnadevaraya Nagar, Gajuwaka, Old Karnivani Palem, Visakhapatnam, Andhra Pradesh – 530026, India<br />
                   </p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Careers Section */}
-      {/* <section id="careers" className="max-w-[1440px] mx-auto px-4 md:px-8 py-12 md:py-16">
-        <div className="text-center mb-12">
-          <h2 className="mb-4">Join Our Team</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            We're always looking for talented individuals who share our passion for natural beauty and customer excellence.
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          {careerPositions.map((position) => (
-            <div 
-              key={position.id} 
-              className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-            >
-              <div className="flex-1">
-                <h3 className="mb-2">{position.title}</h3>
-                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <Briefcase className="w-4 h-4" />
-                    {position.department}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4" />
-                    {position.location}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    {position.type}
-                  </div>
-                </div>
-              </div>
-              <Button 
-                variant="outline" 
-                className="border-primary text-primary hover:bg-primary hover:text-white rounded-full"
-              >
-                Apply Now
-              </Button>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-12 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl p-8 text-center">
-          <h3 className="mb-3">Don't see a perfect fit?</h3>
-          <p className="text-muted-foreground mb-6">
-            We're always open to hearing from talented people. Send us your resume and we'll keep you in mind for future opportunities.
-          </p>
-          <Button 
-            className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8"
-          >
-            Send Your Resume
-          </Button>
-        </div>
-      </section> */}
-
-      {/* Blog Section */}
-      <section id="blog" className="bg-secondary/30">
-        <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-12 md:py-16">
-          <div className="text-center mb-12">
-            <h2 className="mb-4">From Our Blog</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Stay updated with the latest beauty tips, product launches, and industry insights.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {blogPosts.map((post) => (
-              <article 
-                key={post.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer group"
-              >
-                <div className="aspect-video relative overflow-hidden bg-secondary">
-                  <ImageWithFallback
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full">
-                      {post.category}
-                    </span>
-                    <span className="text-xs text-muted-foreground">{post.date}</span>
-                  </div>
-                  <h3 className="mb-3 line-clamp-2">{post.title}</h3>
-                  <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
-                    {post.excerpt}
-                  </p>
-                  <Button 
-                    variant="ghost" 
-                    className="text-primary hover:text-primary p-0 h-auto"
-                  >
-                    Read More <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {/* <div className="text-center mt-12">
-            <Button 
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-white rounded-full px-8"
-            >
-              View All Articles
-            </Button>
-          </div> */}
         </div>
       </section>
     </div>

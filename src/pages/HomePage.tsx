@@ -6,7 +6,7 @@ import { products } from "../data/products";
 
 export function HomePage() {
   const navigate = useNavigate();
-  const featuredProducts = products.slice(0, 8);
+  const featuredProducts = products.slice(0, 16);
 
   return (
     <div className="min-h-screen">

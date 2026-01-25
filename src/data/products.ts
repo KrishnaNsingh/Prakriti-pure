@@ -31,7 +31,7 @@ export const products: Product[] = [
   {
     id: "1",
     name: "D-Tan Clenser Soap",
-    price: 150.00,
+    price: 100.00,
     image: "/images/D-Tan.jpeg",
     category: "Skincare",
     rating: 4.5,
@@ -79,7 +79,7 @@ export const products: Product[] = [
   {
     id: "5",
     name: "Rose Bath Salt",
-    price: 120.00,
+    price: 199.00,
     image: "/images/Rose Bath Salt.jpeg",
     category: "Skincare",
     rating: 4.9,
