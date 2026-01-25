@@ -94,18 +94,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  to="/about#careers"
+                  to="/terms-and-conditions"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/about#blog"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Blog
+                  T&C
                 </Link>
               </li>
             </ul>
