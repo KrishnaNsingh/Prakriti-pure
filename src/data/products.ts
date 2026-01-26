@@ -149,7 +149,7 @@ export const products: Product[] = [
     howtoUse : "Apply on wet skin, gently massage to form lather, and rinse thoroughly with water."
   },
   {
-    id: "10",
+    id: "11",
     name: "Test Product",
     price: 1.00,
     image: "/images/Charcoal Soap.jpeg",
