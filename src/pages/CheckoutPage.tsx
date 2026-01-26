@@ -18,7 +18,7 @@ export function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("card");
 
   const subtotal = getCartTotal();
-  const shipping = subtotal > 999 ? 0 : 100.0;
+  const shipping = subtotal > 999 ? 0 : 1.0;
   const total = subtotal + shipping;
 
   // submit inputs !
