@@ -209,6 +209,9 @@ export function Footer() {
                   <li>
                     <Link to="/about#contact">Contact</Link>
                   </li>
+                  <li>
+                    <Link to="/terms-and-conditions">Terms & Conditions</Link>
+                  </li>
                 </ul>
               )}
             </div>
