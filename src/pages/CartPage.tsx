@@ -9,7 +9,7 @@ export function CartPage() {
   const { cart, updateQuantity, removeFromCart, getCartTotal } = useCart();
 
   const subtotal = getCartTotal();
-  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 1.0) : 0;
+  const shipping = subtotal > 0 ? (subtotal > 999 ? 0 : 100.0) : 0;
   const total = subtotal + shipping;
   const FREE_DELIVERY_THRESHOLD = 999;
 

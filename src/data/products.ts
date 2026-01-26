@@ -35,7 +35,7 @@ export const products: Product[] = [
     image: "/images/D-Tan.jpeg",
     category: "Skincare",
     rating: 4.5,
-    netWeight : "85gm",
+    netWeight : "100gm",
     description: "A gentle cleansing soap formulated to help reduce tan, remove dirt, and refresh tired skin without stripping its natural moisture.",
     detailedDescription: "Helps cleanse tan and impurities while maintaining the skin’s natural moisture balance and softness.",
     howtoUse: "Apply on wet skin, gently massage to form lather, and rinse thoroughly with water."
@@ -47,7 +47,7 @@ export const products: Product[] = [
     image: "/images/Manjistha.jpeg",
     category: "Makeup",
     rating: 4.8,
-    netWeight : "85gm",
+    netWeight : "100gm",
     description: "A nourishing bathing bar that blends traditional herbal care with the softness of goat milk for gentle daily cleansing.",
     detailedDescription: "Helps improve skin clarity while keeping the skin soft, hydrated, and comfortable.",
     howtoUse : "Use daily on wet skin, massage gently, and rinse well."
@@ -59,7 +59,7 @@ export const products: Product[] = [
     image: "/images/Shea Butter Soap.jpeg",
     category: "Fragrance",
     rating: 4.7,
-    netWeight : "85gm",
+    netWeight : "100gm",
     description: "A moisturizing soap designed to cleanse the skin gently while providing lasting nourishment and softness.",
     detailedDescription: "Helps prevent dryness by locking in moisture and leaving the skin smooth and supple.",
     howtoUse : "Apply on damp skin, lather gently, and wash off with water."
@@ -71,7 +71,7 @@ export const products: Product[] = [
     image: "/images/Night Gel.png",
     category: "Body Care",
     rating: 4.6,
-    netWeight : "85gm",
+    netWeight : "50gm",
     description: "A lightweight night gel cream that supports natural skin care and hydration while you sleep.",
     detailedDescription: "Helps nourish and refresh the skin overnight for a healthy and rested look by morning.",
     howtoUse : "Apply a small amount to clean face and neck before bedtime and gently massage until absorbed."
@@ -107,7 +107,7 @@ export const products: Product[] = [
     image: "/images/Glow-face-pack.jpeg",
     category: "Makeup",
     rating: 4.5,
-    netWeight : "100gm",
+    netWeight : "50gm",
     description: "A natural face pack created to refresh dull skin and enhance its natural glow.",
     detailedDescription: "Helps cleanse pores and improve skin brightness, leaving the skin fresh and smooth.",
     howtoUse : "Mix with water or rose water, apply evenly on face, leave for 10–15 minutes, then rinse off."
@@ -131,7 +131,7 @@ export const products: Product[] = [
     image: "/images/Body Butter.jpeg",
     category: "Skincare",
     rating: 4.7,
-    netWeight : "100gm",
+    netWeight : "50gm",
     description: "A rich body butter designed to deeply nourish and moisturize dry and tired skin.",
     detailedDescription: "Helps provide long-lasting hydration and improves skin softness and comfort.",
     howtoUse : "Apply generously on clean, dry skin and massage until fully absorbed."
@@ -143,21 +143,10 @@ export const products: Product[] = [
     image: "/images/Charcoal Soap.jpeg",
     category: "Skincare",
     rating: 4.7,
-    netWeight : "85gm",
+    netWeight : "100gm",
     description: "A deep-cleansing soap designed to draw out dirt, excess oil, and impurities from the skin.",
     detailedDescription: "Helps purify pores and control excess oil while keeping the skin fresh and balanced.",
     howtoUse : "Apply on wet skin, gently massage to form lather, and rinse thoroughly with water."
   },
-  {
-    id: "11",
-    name: "Test Product",
-    price: 1.00,
-    image: "/images/Charcoal Soap.jpeg",
-    category: "Skincare",
-    rating: 4.7,
-    netWeight : "85gm",
-    description: "A deep-cleansing soap designed to draw out dirt, excess oil, and impurities from the skin.",
-    detailedDescription: "Helps purify pores and control excess oil while keeping the skin fresh and balanced.",
-    howtoUse : "Apply on wet skin, gently massage to form lather, and rinse thoroughly with water."
-  },
+
 ];
