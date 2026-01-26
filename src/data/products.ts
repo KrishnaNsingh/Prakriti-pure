@@ -148,4 +148,16 @@ export const products: Product[] = [
     detailedDescription: "Helps purify pores and control excess oil while keeping the skin fresh and balanced.",
     howtoUse : "Apply on wet skin, gently massage to form lather, and rinse thoroughly with water."
   },
+  {
+    id: "10",
+    name: "Test Product",
+    price: 1.00,
+    image: "/images/Charcoal Soap.jpeg",
+    category: "Skincare",
+    rating: 4.7,
+    netWeight : "85gm",
+    description: "A deep-cleansing soap designed to draw out dirt, excess oil, and impurities from the skin.",
+    detailedDescription: "Helps purify pores and control excess oil while keeping the skin fresh and balanced.",
+    howtoUse : "Apply on wet skin, gently massage to form lather, and rinse thoroughly with water."
+  },
 ];
