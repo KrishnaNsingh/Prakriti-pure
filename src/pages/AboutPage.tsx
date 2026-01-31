@@ -105,7 +105,7 @@ export function AboutPage() {
               </p>
               <div className="grid grid-cols-3 gap-4 pt-6">
                 <div className="text-center">
-                  <p className="text-3xl md:text-4xl text-primary">1400+</p>
+                  <p className="text-3xl md:text-4xl text-primary">570+</p>
                   <p className="text-sm text-muted-foreground">Happy Customers</p>
                 </div>
                 <div className="text-center">
