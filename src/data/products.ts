@@ -104,7 +104,7 @@ export const products: Product[] = [
     id: "7",
     name: "Glow Face Pack",
     price: 200.00,
-    image: "/images/glow-face-pack.jpeg",
+    image: "/images/glow-face-pack.png",
     category: "Makeup",
     rating: 4.5,
     netWeight : "50gm",
