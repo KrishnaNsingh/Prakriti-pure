@@ -29,7 +29,7 @@ export const categories: Category[] = [
 
 export const products: Product[] = [
   {
-    id: "1",
+    id: "d-tan-soap",
     name: "D-Tan Clenser Soap",
     price: 100.00,
     image: "/images/d-tan-soap.jpeg",
@@ -41,7 +41,7 @@ export const products: Product[] = [
     howtoUse: "Apply on wet skin, gently massage to form lather, and rinse thoroughly with water."
   },
   {
-    id: "2",
+    id: "manjistha-goat-milk-soap",
     name: "Manjistha Goat Milk Soap",
     price: 100.00,
     image: "/images/manjistha-goat-milk-soap.jpeg",
@@ -53,7 +53,7 @@ export const products: Product[] = [
     howtoUse : "Use daily on wet skin, massage gently, and rinse well."
   },
   {
-    id: "3",
+    id: "shea-butter-soap",
     name: "Shea Butter Soap",
     price: 100.00,
     image: "/images/shea-butter-soap.jpeg",
@@ -65,7 +65,7 @@ export const products: Product[] = [
     howtoUse : "Apply on damp skin, lather gently, and wash off with water."
   },
   {
-    id: "4",
+    id: "night-gel",
     name: "Night Gel Cream",
     price: 150.00,
     image: "/images/night-gel.png",
@@ -77,7 +77,7 @@ export const products: Product[] = [
     howtoUse : "Apply a small amount to clean face and neck before bedtime and gently massage until absorbed."
   },
   {
-    id: "5",
+    id: "rose-bath-salt",
     name: "Rose Bath Salt",
     price: 199.00,
     image: "/images/rose-bath-salt.jpeg",
@@ -89,7 +89,7 @@ export const products: Product[] = [
     howtoUse : "Add the required amount to warm bath water or mix with water for a foot soak and relax for 15–20 minutes."
   },
   {
-    id: "6",
+    id: "lip-balm",
     name: "Lip Balm",
     price: 120.00,
     image: "/images/lip-balm.png",
@@ -101,7 +101,7 @@ export const products: Product[] = [
     howtoUse : "Apply evenly on lips whenever needed, especially before sleep."
   },
   {
-    id: "7",
+    id: "glow-face-pack",
     name: "Glow Face Pack",
     price: 200.00,
     image: "/images/glow-face-pack.png",
@@ -113,7 +113,7 @@ export const products: Product[] = [
     howtoUse : "Mix with water or rose water, apply evenly on face, leave for 10–15 minutes, then rinse off."
   },
   {
-    id: "8",
+    id: "herbal-d-tan-clenser-powder",
     name: "Herbal D-Tan Clenser Powder",
     price: 150.00,
     image: "/images/herbal-d-tan-clenser-powder.jpeg",
@@ -125,7 +125,7 @@ export const products: Product[] = [
     howtoUse : "Mix with water, apply gently on skin, massage lightly, and rinse off."
   },
   {
-    id: "9",
+    id: "body-butter",
     name: "Body Butter",
     price: 249.00,
     image: "/images/body-butter.jpeg",
@@ -137,7 +137,7 @@ export const products: Product[] = [
     howtoUse : "Apply generously on clean, dry skin and massage until fully absorbed."
   },
   {
-    id: "10",
+    id: "charcoal-soap",
     name: "Charcoal Soap",
     price: 100.00,
     image: "/images/charcoal-soap.jpeg",
