@@ -274,7 +274,7 @@ export function CheckoutPage() {
                 <h3 className="mb-6">Shipping Address</h3>
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="address">Street Address</Label>
+                    <Label htmlFor="address">House Street Address</Label>
                     <Input
                       id="address"
                       value={address}
