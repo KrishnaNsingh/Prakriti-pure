@@ -125,6 +125,18 @@ export const products: Product[] = [
     howtoUse : "Mix with water or rose water, apply evenly on face, leave for 10–15 minutes, then rinse off."
   },
   {
+    id: "multani-miti",
+    name: "Multani Miti",
+    price: 49.00,
+    image: "/images/Multani-Miti.jpeg",
+    category: "Makeup",
+    rating: 4.5,
+    netWeight : "50gm",
+    description: "A 100% natural healing clay that deeply cleanses pores and absorbs excess oil for a clear, matte finish.",
+    detailedDescription: "Rich in magnesium chloride, this mineral-dense clay draws out impurities, fades dark spots, and cools the skin. It’s the ultimate traditional remedy for controlling acne and brightening dull complexions naturally.",
+    howtoUse : "Mix with water or rose water to form a paste, apply to the face for 10–15 minutes, and rinse before it dries completely."
+  },
+  {
     id: "herbal-d-tan-clenser-powder",
     name: "Herbal D-Tan Clenser Powder",
     price: 150.00,
