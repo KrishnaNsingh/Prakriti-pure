@@ -65,42 +65,6 @@ export const products: Product[] = [
     howtoUse : "Apply on damp skin, lather gently, and wash off with water."
   },
   {
-    id: "papaya-&-orange-facial-bar",
-    name: "Papaya & Orange Facial Bar",
-    price: 299.00,
-    image: "/images/papaya-&-orange-facial-bar.jpeg",
-    category: "Skincare",
-    rating: 4.9,
-    netWeight : "85gm",
-    description: "A refreshing facial cleansing bar enriched with papaya and orange extracts to gently cleanse, brighten, and revitalize the skin for a fresh and radiant appearance.",
-    detailedDescription: "Papaya and orange extracts help gently cleanse the skin while supporting a fresh and vibrant appearance. The mild formula removes daily impurities while keeping the skin feeling soft and balanced.",
-    howtoUse : "Create lather with water, massage gently onto the face, and rinse thoroughly."
-  },
-  {
-    id: "french-pink-clay-&-rose-facial-bar",
-    name: "French Pink Clay & Rose Facial Bar",
-    price: 399.00,
-    image: "/images/french-pink-clay-&-rose-facial-bar.jpeg",
-    category: "Skincare",
-    rating: 4.9,
-    netWeight : "85gm",
-    description: "A gentle facial cleansing bar made with French pink clay and rose extracts that helps cleanse, soothe, and refresh the skin while maintaining natural moisture.",
-    detailedDescription: "This facial bar combines the mild purifying power of French pink clay with the soothing properties of rose. It helps remove impurities, excess oil, and daily buildup without drying the skin. The result is soft, balanced, and naturally refreshed skin after every wash.",
-    howtoUse : "Rub the bar with water to create lather, gently massage onto the face, and rinse thoroughly."
-  },
-  {
-    id: "nalugu-herbal-loofah-soap",
-    name: "Nalugu Herbal Loofah Soap",
-    price: 199.00,
-    image: "/images/nalugu-herbal-loofah-soap.jpeg",
-    category: "Body Care",
-    rating: 4.9,
-    netWeight : "85gm",
-    description: "A traditional herbal soap inspired by the ancient Nalugu bath ritual, designed to cleanse and gently exfoliate the skin.",
-    detailedDescription: "This soap combines herbal ingredients with natural loofah fibers to help remove dead skin cells while cleansing the skin. The mild exfoliation leaves the skin feeling smoother, refreshed, and revitalized after every use.",
-    howtoUse : "Apply to wet skin, massage gently for mild exfoliation, and rinse well."
-  },
-  {
     id: "night-gel",
     name: "Night Gel Cream",
     price: 150.00,
@@ -149,18 +113,6 @@ export const products: Product[] = [
     howtoUse : "Swipe once for a subtle hint of tint, or layer for a bolder pop of red. Reapply as needed for continuous hydration."
   },
   {
-    id: "kumkumadi-tailam",
-    name: "Kumkumadi Tailam (Ayurvedic Facial Oil)",
-    price: 499.00,
-    image: "/images/kumkumadi-tailam.jpeg",
-    category: "Skincare",
-    rating: 4.7,
-    netWeight : "30ml",
-    description: "A traditional Ayurvedic facial oil made with herbal ingredients known to nourish the skin and enhance natural radiance.",
-    detailedDescription: "Kumkumadi Tailam is a classic Ayurvedic oil traditionally used to support glowing and healthy-looking skin. The herbal blend helps hydrate, improve skin texture, and maintain a smooth, radiant complexion when used regularly as part of a skincare routine.",
-    howtoUse : "Apply 2–3 drops on clean skin and gently massage onto the face and neck."
-  },
-  {
     id: "glow-face-pack",
     name: "Glow Face Pack",
     price: 200.00,
@@ -171,30 +123,6 @@ export const products: Product[] = [
     description: "A natural face pack created to refresh dull skin and enhance its natural glow.",
     detailedDescription: "Helps cleanse pores and improve skin brightness, leaving the skin fresh and smooth.",
     howtoUse : "Mix with water or rose water, apply evenly on face, leave for 10–15 minutes, then rinse off."
-  },
-  {
-    id: "tridosha-hair-growth-oil",
-    name: "Tridosha Hair Growth Oil",
-    price: 399.00,
-    image: "/images/tridosha-hair-growth-oil.jpeg",
-    category: "Hair Care",
-    rating: 4.6,
-    netWeight : "200ml",
-    description: "An herbal hair oil inspired by Ayurvedic traditions that helps nourish the scalp and support healthy hair growth.",
-    detailedDescription: "This herbal oil blend helps moisturize the scalp, strengthen hair roots, and support healthy-looking hair. Regular scalp massage with the oil helps improve hair manageability and maintain scalp balance.",
-    howtoUse : "Apply a small amount to the scalp, massage gently, leave for at least 30 minutes, then wash."
-  },
-  {
-    id: "tridosha-herbal-shampoo",
-    name: "Tridosha Herbal Shampoo",
-    price: 299.00,
-    image: "/images/tridosha-herbal-shampoo.jpeg",
-    category: "Hair Care",
-    rating: 4.2,
-    netWeight : "200ml",
-    description: "A gentle herbal shampoo that cleanses the scalp while helping reduce hair fall and maintain healthy hair.",
-    detailedDescription: "Formulated with herbal ingredients traditionally used in hair care, this shampoo helps remove dirt and oil buildup while maintaining scalp moisture. It supports stronger hair and a clean, refreshed scalp.",
-    howtoUse : "Apply to wet hair, massage into the scalp to create lather, then rinse thoroughly."
   },
   {
     id: "multani-miti",
