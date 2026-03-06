@@ -65,6 +65,30 @@ export const products: Product[] = [
     howtoUse : "Apply on damp skin, lather gently, and wash off with water."
   },
   {
+    id: "rose-bath-salt",
+    name: "Rose Bath Salt",
+    price: 199.00,
+    image: "/images/rose-bath-salt.jpeg",
+    category: "Skincare",
+    rating: 4.9,
+    netWeight : "200gm",
+    description: "A soothing bath salt infused with the calming essence of rose to relax the body and refresh the skin.",
+    detailedDescription: "Helps cleanse, soften, and rejuvenate the skin while providing a relaxing bathing experience.",
+    howtoUse : "Add the required amount to warm bath water or mix with water for a foot soak and relax for 15–20 minutes."
+  },
+  {
+    id: "rose-bath-salt",
+    name: "Rose Bath Salt",
+    price: 199.00,
+    image: "/images/rose-bath-salt.jpeg",
+    category: "Skincare",
+    rating: 4.9,
+    netWeight : "200gm",
+    description: "A soothing bath salt infused with the calming essence of rose to relax the body and refresh the skin.",
+    detailedDescription: "Helps cleanse, soften, and rejuvenate the skin while providing a relaxing bathing experience.",
+    howtoUse : "Add the required amount to warm bath water or mix with water for a foot soak and relax for 15–20 minutes."
+  },
+  {
     id: "night-gel",
     name: "Night Gel Cream",
     price: 150.00,
@@ -113,6 +137,18 @@ export const products: Product[] = [
     howtoUse : "Swipe once for a subtle hint of tint, or layer for a bolder pop of red. Reapply as needed for continuous hydration."
   },
   {
+    id: "rose-bath-salt",
+    name: "Rose Bath Salt",
+    price: 199.00,
+    image: "/images/rose-bath-salt.jpeg",
+    category: "Skincare",
+    rating: 4.9,
+    netWeight : "200gm",
+    description: "A soothing bath salt infused with the calming essence of rose to relax the body and refresh the skin.",
+    detailedDescription: "Helps cleanse, soften, and rejuvenate the skin while providing a relaxing bathing experience.",
+    howtoUse : "Add the required amount to warm bath water or mix with water for a foot soak and relax for 15–20 minutes."
+  },
+  {
     id: "glow-face-pack",
     name: "Glow Face Pack",
     price: 200.00,
@@ -123,6 +159,30 @@ export const products: Product[] = [
     description: "A natural face pack created to refresh dull skin and enhance its natural glow.",
     detailedDescription: "Helps cleanse pores and improve skin brightness, leaving the skin fresh and smooth.",
     howtoUse : "Mix with water or rose water, apply evenly on face, leave for 10–15 minutes, then rinse off."
+  },
+  {
+    id: "rose-bath-salt",
+    name: "Rose Bath Salt",
+    price: 199.00,
+    image: "/images/rose-bath-salt.jpeg",
+    category: "Skincare",
+    rating: 4.9,
+    netWeight : "200gm",
+    description: "A soothing bath salt infused with the calming essence of rose to relax the body and refresh the skin.",
+    detailedDescription: "Helps cleanse, soften, and rejuvenate the skin while providing a relaxing bathing experience.",
+    howtoUse : "Add the required amount to warm bath water or mix with water for a foot soak and relax for 15–20 minutes."
+  },
+  {
+    id: "rose-bath-salt",
+    name: "Rose Bath Salt",
+    price: 199.00,
+    image: "/images/rose-bath-salt.jpeg",
+    category: "Skincare",
+    rating: 4.9,
+    netWeight : "200gm",
+    description: "A soothing bath salt infused with the calming essence of rose to relax the body and refresh the skin.",
+    detailedDescription: "Helps cleanse, soften, and rejuvenate the skin while providing a relaxing bathing experience.",
+    howtoUse : "Add the required amount to warm bath water or mix with water for a foot soak and relax for 15–20 minutes."
   },
   {
     id: "multani-miti",
