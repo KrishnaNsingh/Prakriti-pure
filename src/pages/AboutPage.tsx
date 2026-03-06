@@ -25,63 +25,33 @@ export function AboutPage() {
     toast.success("Thank you! We'll get back to you soon.");
   };
 
-  const blogPosts = [
-    {
-      id: 1,
-      title: "10 Natural Ingredients for Glowing Skin",
-      excerpt: "Discover the power of nature with these amazing ingredients that will transform your skincare routine...",
-      image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-      date: "March 15, 2025",
-      category: "Skincare"
-    },
-    {
-      id: 2,
-      title: "The Ultimate Summer Makeup Guide",
-      excerpt: "Stay fresh and radiant all summer long with these essential makeup tips and product recommendations...",
-      image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-      date: "March 10, 2025",
-      category: "Makeup"
-    },
-    {
-      id: 3,
-      title: "Sustainable Beauty: Our Commitment",
-      excerpt: "Learn about our journey towards creating eco-friendly beauty products that are good for you and the planet...",
-      image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-      date: "March 5, 2025",
-      category: "Lifestyle"
-    }
-  ];
-
-  // const careerPositions = [
+  // const blogPosts = [
   //   {
   //     id: 1,
-  //     title: "Senior Product Manager",
-  //     department: "Product",
-  //     location: "Mumbai, India",
-  //     type: "Full-time"
+  //     title: "10 Natural Ingredients for Glowing Skin",
+  //     excerpt: "Discover the power of nature with these amazing ingredients that will transform your skincare routine...",
+  //     image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+  //     date: "March 15, 2025",
+  //     category: "Skincare"
   //   },
   //   {
   //     id: 2,
-  //     title: "Beauty Content Creator",
-  //     department: "Marketing",
-  //     location: "Bangalore, India",
-  //     type: "Full-time"
+  //     title: "The Ultimate Summer Makeup Guide",
+  //     excerpt: "Stay fresh and radiant all summer long with these essential makeup tips and product recommendations...",
+  //     image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+  //     date: "March 10, 2025",
+  //     category: "Makeup"
   //   },
   //   {
   //     id: 3,
-  //     title: "Customer Success Specialist",
-  //     department: "Support",
-  //     location: "Delhi, India",
-  //     type: "Full-time"
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Supply Chain Coordinator",
-  //     department: "Operations",
-  //     location: "Mumbai, India",
-  //     type: "Full-time"
+  //     title: "Sustainable Beauty: Our Commitment",
+  //     excerpt: "Learn about our journey towards creating eco-friendly beauty products that are good for you and the planet...",
+  //     image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+  //     date: "March 5, 2025",
+  //     category: "Lifestyle"
   //   }
   // ];
+
 
   return (
     <div className="min-h-screen">
@@ -109,7 +79,7 @@ export function AboutPage() {
                   <p className="text-sm text-muted-foreground">Happy Customers</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl md:text-4xl text-primary">10+</p>
+                  <p className="text-3xl md:text-4xl text-primary">15+</p>
                   <p className="text-sm text-muted-foreground">Products</p>
                 </div>
                 <div className="text-center">
